@@ -42,9 +42,8 @@ function orbit(offset: number, w: number, h: number, isActive: boolean) {
       : seat / VIS;
   const abs = Math.min(Math.abs(t), 1);
 
-  // Flatter front arc so L/R neighbors sit on the same path as the mid card
+  // Front arc along a shared ellipse (seat steps, not card size)
   const maxAngle = (Math.PI / 2) * 0.7;
-  // Slight ease so first L/R seats clear the large mid without floating high/out
   const spaced = Math.sign(t) * Math.pow(abs || 0, 0.9);
   const angle = spaced * maxAngle;
 
@@ -54,13 +53,13 @@ function orbit(offset: number, w: number, h: number, isActive: boolean) {
 
   // Shared ellipse for every seat (must not depend on card width)
   const rx = w * 0.42;
-  const rz = Math.min(w, h) * 0.36;
+  const rz = Math.min(w, h) * 0.34;
 
-  // Shared vertical path: gentle rise on the sides (same curve for every seat)
-  const y = h * (0.02 + abs * abs * -0.045);
+  // Convex path: mid highest, sides drop — peak kept below navbar
+  const y = h * (-0.06 + abs * abs * 0.14);
 
-  // Tip/yaw follow the same angle so cards stay tangent to the path
-  const tip = 14 + abs * 5;
+  // Tip follows the downhill slope on the sides; yaw stays tangent to the arc
+  const tip = 10 + abs * 9;
   const yaw = -angle * (180 / Math.PI);
 
   let opacity = 0.58 + (1 - abs) * 0.42;
@@ -68,6 +67,7 @@ function orbit(offset: number, w: number, h: number, isActive: boolean) {
   if (seam) opacity = 0;
 
   const x = Math.sin(angle) * rx;
+  // Mid stays forward; sides recede along the convex ribbon
   const z = Math.cos(angle) * rz - rz;
 
   return {
@@ -92,7 +92,7 @@ function introDot(seam: boolean) {
     opacity: seam ? 0 : 1,
     zIndex: seam ? 0 : 60,
     seam,
-    transform: "translate3d(-50%, calc(-50% - 10px), 0) scale(0.08)",
+    transform: "translate3d(-50%, calc(-50% - 8px), 0) scale(0.08)",
   };
 }
 

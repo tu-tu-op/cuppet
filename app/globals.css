@@ -135,7 +135,8 @@ button {
 }
 
 .hero {
-  padding: 8px 0 12px;
+  padding: 4px 0 10px;
+  margin-top: 0;
 }
 
 .sr-only {
@@ -154,10 +155,10 @@ button {
   position: relative;
   width: 100vw;
   max-width: 100vw;
-  height: clamp(360px, 48vw, 520px);
+  height: clamp(360px, 46vw, 520px);
   overflow: hidden;
   perspective: 1400px;
-  perspective-origin: 50% 42%;
+  perspective-origin: 50% 32%;
   touch-action: pan-y;
   user-select: none;
 }
@@ -174,7 +175,8 @@ button {
 
 .carousel-card {
   position: absolute;
-  top: 50%;
+  /* Clear of the navbar; mid card peaks above center of stage */
+  top: 43%;
   left: 50%;
   display: block;
   aspect-ratio: 5 / 7;
@@ -317,11 +319,17 @@ button {
   }
 
   .hero {
-    padding: 4px 0 8px;
+    padding: 2px 0 8px;
+    margin-top: 0;
   }
 
   .carousel-stage {
-    height: clamp(300px, 72vw, 400px);
+    height: clamp(320px, 70vw, 420px);
+    perspective-origin: 50% 30%;
+  }
+
+  .carousel-card {
+    top: 41%;
   }
 
   .carousel-card {
