@@ -168,6 +168,10 @@ button {
   transform-style: preserve-3d;
 }
 
+.carousel-stage.is-introing {
+  pointer-events: none;
+}
+
 .carousel-card {
   position: absolute;
   top: 50%;
@@ -191,6 +195,26 @@ button {
     opacity 500ms ease,
     transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 220ms ease;
+}
+
+/* Load intro: stacked as a mid-stage dot, then ease into orbit seats */
+.carousel-card.is-intro-dot {
+  border-radius: 50%;
+  transition: none !important;
+}
+
+.carousel-card.is-intro-fan {
+  transition:
+    width 980ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 720ms ease,
+    transform 980ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-radius 720ms ease;
+}
+
+.carousel-stage.is-introing .carousel-card-shade,
+.carousel-stage.is-introing .carousel-caption {
+  opacity: 0 !important;
+  transition: none !important;
 }
 
 .carousel-card img {

@@ -20,6 +20,8 @@ const people = [
 
 const N = people.length;
 const VIS = Math.max(1, Math.floor((N - 1) / 2) - 1);
+const INTRO_MS = 980;
+const INTRO_STAGGER = 72;
 
 function wrapOffset(i: number, active: number) {
   const raw = i - active;
@@ -59,16 +61,31 @@ function orbit(offset: number, w: number, h: number, isActive: boolean) {
   };
 }
 
+/** Center seed for the load intro — one minimal mid-stage dot */
+function introDot(seam: boolean) {
+  return {
+    width: "28px",
+    opacity: seam ? 0 : 1,
+    zIndex: seam ? 0 : 60,
+    seam,
+    transform: "translate3d(-50%, calc(-50% - 10px), 0) scale(0.08)",
+  };
+}
+
 export default function ImageCarousel() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const [size, setSize] = useState({ w: 1280, h: 640 });
   const [wrapping, setWrapping] = useState<Set<number>>(new Set());
+  // pending → measure, dot → paint at center, fan → orbit seats, done → normal
+  const [intro, setIntro] = useState<"pending" | "dot" | "fan" | "done">("pending");
   const stageRef = useRef<HTMLDivElement>(null);
   const swipeX = useRef<number | null>(null);
   const prevOff = useRef(people.map((_, i) => wrapOffset(i, 0)));
+  const introStarted = useRef(false);
 
   const move = (d: number) => setActive((a) => (a + d + N) % N);
+  const introing = intro !== "done";
 
   useEffect(() => {
     const el = stageRef.current;
@@ -76,6 +93,13 @@ export default function ImageCarousel() {
     const measure = () => {
       const r = el.getBoundingClientRect();
       setSize({ w: Math.max(r.width, 320), h: Math.max(r.height, 360) });
+      if (introStarted.current) return;
+      introStarted.current = true;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        setIntro("done");
+      } else {
+        setIntro("dot");
+      }
     };
     measure();
     const ro = new ResizeObserver(measure);
@@ -83,14 +107,30 @@ export default function ImageCarousel() {
     return () => ro.disconnect();
   }, []);
 
+  // Paint the center-dot frame, then fan into orbit seats
   useEffect(() => {
-    if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (intro !== "dot") return;
+    const id = requestAnimationFrame(() => {
+      requestAnimationFrame(() => setIntro("fan"));
+    });
+    return () => cancelAnimationFrame(id);
+  }, [intro]);
+
+  useEffect(() => {
+    if (intro !== "fan") return;
+    const t = window.setTimeout(() => setIntro("done"), INTRO_MS + VIS * INTRO_STAGGER + 80);
+    return () => clearTimeout(t);
+  }, [intro]);
+
+  useEffect(() => {
+    if (introing || paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const id = setInterval(() => move(1), 4800);
     return () => clearInterval(id);
-  }, [active, paused]);
+  }, [active, paused, introing]);
 
   // Seam jump: skip CSS transition so cards don't fly across the orbit
   useEffect(() => {
+    if (introing) return;
     const next = new Set<number>();
     people.forEach((_, i) => {
       const off = wrapOffset(i, active);
@@ -101,17 +141,18 @@ export default function ImageCarousel() {
     setWrapping(next);
     const f = requestAnimationFrame(() => requestAnimationFrame(() => setWrapping(new Set())));
     return () => cancelAnimationFrame(f);
-  }, [active]);
+  }, [active, introing]);
 
   const [name, role] = people[active];
 
   return (
     <div
-      className="carousel-stage"
+      className={["carousel-stage", introing && "is-introing"].filter(Boolean).join(" ")}
       ref={stageRef}
       role="region"
       aria-roledescription="carousel"
       aria-label="Team portraits in orbit"
+      aria-busy={introing}
       tabIndex={0}
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={(e) => {
@@ -120,6 +161,7 @@ export default function ImageCarousel() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onKeyDown={(e) => {
+        if (introing) return;
         if (e.key === "ArrowLeft") {
           e.preventDefault();
           move(-1);
@@ -129,10 +171,11 @@ export default function ImageCarousel() {
         }
       }}
       onPointerDown={(e) => {
+        if (introing) return;
         if (e.pointerType === "touch") swipeX.current = e.clientX;
       }}
       onPointerUp={(e) => {
-        if (e.pointerType !== "touch" || swipeX.current === null) return;
+        if (introing || e.pointerType !== "touch" || swipeX.current === null) return;
         const d = e.clientX - swipeX.current;
         swipeX.current = null;
         if (Math.abs(d) > 42) move(d > 0 ? -1 : 1);
@@ -145,13 +188,17 @@ export default function ImageCarousel() {
         {people.map(([pName, pRole, slug], i) => {
           const offset = wrapOffset(i, active);
           const isActive = offset === 0;
-          const style = orbit(offset, size.w, size.h, isActive);
+          const seat = orbit(offset, size.w, size.h, isActive);
           const isWrap = wrapping.has(i);
+          const style = intro === "dot" || intro === "pending" ? introDot(seat.seam) : seat;
+          const delay = intro === "fan" ? `${Math.abs(offset) * INTRO_STAGGER}ms` : "0ms";
           const cls = [
             "carousel-card",
             isActive && "active",
             (style.seam || isWrap) && "is-seam",
             isWrap && "no-transition",
+            intro === "dot" || intro === "pending" ? "is-intro-dot" : "",
+            intro === "fan" ? "is-intro-fan" : "",
           ]
             .filter(Boolean)
             .join(" ");
@@ -163,15 +210,16 @@ export default function ImageCarousel() {
               className={cls}
               aria-label={isActive ? `${pName}, ${pRole}` : `Show ${pName}`}
               aria-hidden={style.seam}
-              tabIndex={style.seam || Math.abs(offset) > VIS ? -1 : 0}
+              tabIndex={introing || style.seam || Math.abs(offset) > VIS ? -1 : 0}
               onClick={() => {
-                if (!style.seam) setActive(i);
+                if (!introing && !style.seam) setActive(i);
               }}
               style={{
                 width: style.width,
                 opacity: isWrap ? 0 : style.opacity,
                 zIndex: style.zIndex,
                 transform: style.transform,
+                transitionDelay: delay,
               }}
             >
               <img
