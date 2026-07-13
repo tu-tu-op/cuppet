@@ -44,6 +44,7 @@ button {
   min-height: 100dvh;
   overflow-x: hidden;
   background:
+    radial-gradient(circle, rgba(84, 117, 100, 0.18) 0 1px, transparent 1.4px) 0 0 / 12px 56px,
     radial-gradient(ellipse 90% 55% at 50% 18%, #fff 0%, transparent 58%),
     radial-gradient(ellipse 70% 50% at 50% 88%, rgba(232, 228, 220, 0.9) 0%, transparent 55%),
     radial-gradient(circle at 12% 40%, rgba(109, 148, 128, 0.05), transparent 32%),
@@ -109,6 +110,7 @@ button {
   background: linear-gradient(180deg, #7ea690 0%, var(--accent) 55%, #628a74 100%);
   border: 1px solid rgba(84, 117, 100, 0.22);
   border-radius: 12px;
+  font-family: var(--nav-font);
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.03em;
@@ -137,6 +139,44 @@ button {
 .hero {
   padding: 4px 0 10px;
   margin-top: 0;
+}
+
+.brand-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(80px, 14vw, 220px);
+  margin-top: -144px;
+  padding: 28px clamp(24px, 4vw, 56px) clamp(72px, 9vw, 120px);
+}
+
+.brand-intro-lead h1 {
+  max-width: 560px;
+  margin: 0;
+  font-family: var(--nav-font);
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+.brand-intro-copy {
+  justify-self: end;
+  max-width: 560px;
+}
+
+.brand-intro-copy > p {
+  margin: 0;
+  color: rgba(28, 26, 23, 0.76);
+  font-family: var(--nav-font);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+.intro-cta {
+  justify-self: start;
+  margin-top: 28px;
 }
 
 .sr-only {
@@ -321,6 +361,21 @@ button {
   .hero {
     padding: 2px 0 8px;
     margin-top: 0;
+  }
+
+  .brand-intro {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    margin-top: -104px;
+    padding: 24px 20px 72px;
+  }
+
+  .brand-intro-lead h1 {
+    font-size: 29px;
+  }
+
+  .brand-intro-copy {
+    justify-self: start;
   }
 
   .carousel-stage {
