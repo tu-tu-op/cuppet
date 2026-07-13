@@ -33,30 +33,54 @@ function wrapOffset(i: number, active: number) {
 
 function orbit(offset: number, w: number, h: number, isActive: boolean) {
   const seam = Math.abs(offset) > VIS;
+  // Equal seat steps on the arc (not stretched by card size)
+  const seat = Math.max(-VIS, Math.min(VIS, offset));
   const t = seam
-    ? Math.sign(offset || 1) * 1.12
+    ? Math.sign(offset || 1) * 1.08
     : VIS === 0
       ? 0
-      : Math.max(-VIS, Math.min(VIS, offset)) / VIS;
+      : seat / VIS;
   const abs = Math.min(Math.abs(t), 1);
-  const angle = t * (Math.PI / 2) * 0.88;
-  const rx = w * 0.46;
-  const rz = Math.min(w, h) * 0.4;
-  const tip = 18 + abs * 6;
-  const yaw = -angle * (180 / Math.PI) * 0.85;
-  let opacity = 0.62 + (1 - abs) * 0.38;
-  if (Math.abs(offset) === VIS) opacity *= 0.72;
+
+  // Flatter front arc so L/R neighbors sit on the same path as the mid card
+  const maxAngle = (Math.PI / 2) * 0.7;
+  // Slight ease so first L/R seats clear the large mid without floating high/out
+  const spaced = Math.sign(t) * Math.pow(abs || 0, 0.9);
+  const angle = spaced * maxAngle;
+
+  const base = (w / Math.max(N - 2, 1)) * 1.15;
+  // Mid max larger; all other seats min smaller
+  const widthPx = Math.max(32, base * (isActive ? 1.55 : 0.48));
+
+  // Shared ellipse for every seat (must not depend on card width)
+  const rx = w * 0.42;
+  const rz = Math.min(w, h) * 0.36;
+
+  // Shared vertical path: gentle rise on the sides (same curve for every seat)
+  const y = h * (0.02 + abs * abs * -0.045);
+
+  // Tip/yaw follow the same angle so cards stay tangent to the path
+  const tip = 14 + abs * 5;
+  const yaw = -angle * (180 / Math.PI);
+
+  let opacity = 0.58 + (1 - abs) * 0.42;
+  if (Math.abs(offset) === VIS) opacity *= 0.7;
   if (seam) opacity = 0;
 
+  const x = Math.sin(angle) * rx;
+  const z = Math.cos(angle) * rz - rz;
+
   return {
-    width: `${Math.max(42, (w / Math.max(N - 2, 1)) * (1.15 - abs * 0.24)).toFixed(2)}px`,
+    width: `${widthPx.toFixed(2)}px`,
     opacity,
     zIndex: seam ? 0 : Math.round(40 + (1 - abs) * 40 + (isActive ? 20 : 0)),
     seam,
+    // Center on path first, then rotate around card center (keeps L/R on the arc)
     transform: [
-      `translate3d(calc(-50% + ${(Math.sin(angle) * rx).toFixed(2)}px), calc(-50% + ${(abs * abs * h * -0.06 + h * 0.04).toFixed(2)}px), ${(Math.cos(angle) * rz - rz).toFixed(1)}px)`,
-      ` rotateX(${tip.toFixed(2)}deg) rotateY(${yaw.toFixed(2)}deg)`,
-      ` scale(${(isActive ? 1.08 : 1 - abs * 0.1).toFixed(3)})`,
+      `translate3d(-50%, -50%, 0)`,
+      ` translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, ${z.toFixed(1)}px)`,
+      ` rotateY(${yaw.toFixed(2)}deg)`,
+      ` rotateX(${tip.toFixed(2)}deg)`,
     ].join(""),
   };
 }
