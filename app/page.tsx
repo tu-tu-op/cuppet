@@ -18,7 +18,7 @@ export default function Home() {
           Join Waitlist
         </a>
       </header>
-      <section className="hero" id="product" aria-label="Team carousel">
+      <section className="hero" id="product" aria-label="Product demo carousel">
         <ImageCarousel />
       </section>
       <section className="brand-intro" id="about" aria-labelledby="brand-heading">

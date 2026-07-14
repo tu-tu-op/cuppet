@@ -2,23 +2,23 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const people = [
-  ["Aria Chen", "Creative Director", "aria-chen"],
-  ["Noah Williams", "Operations Lead", "noah-williams"],
-  ["Maya Patel", "Workflow Designer", "maya-patel"],
-  ["Leo Martin", "Systems Engineer", "leo-martin"],
-  ["Elena Rossi", "Product Operator", "elena-rossi"],
-  ["Jon Bell", "Delivery Lead", "jon-bell"],
-  ["Kenji Sato", "Product Designer", "kenji-sato"],
-  ["Amara Okonkwo", "Growth Lead", "amara-okonkwo"],
-  ["Diego Ramirez", "Platform Engineer", "diego-ramirez"],
-  ["Priya Nair", "Customer Success", "priya-nair"],
-  ["Layla Hassan", "Data Analyst", "layla-hassan"],
-  ["Owen Hart", "QA Lead", "owen-hart"],
-  ["Sophie Blake", "Community Manager", "sophie-blake"],
+const slides = [
+  ["Welcome flow", "welcome-flow.jpg"],
+  ["Dashboard overview", "opening-the-app.jpg"],
+  ["Connect your tools", "connecting-your-tools.jpg"],
+  ["Review permissions", "permission-approval.jpg"],
+  ["Agent setup", "agent-setup.jpg"],
+  ["Schedule your agent", "schedule-agent.jpg"],
+  ["Chat with your agent", "agent-chat.jpg"],
+  ["Command to agent", "sending-a-command.jpg"],
+  ["Agent at work", "watching-the-agent-work.jpg"],
+  ["Live progress", "live-status.jpg"],
+  ["Result returned", "reviewing-the-result.jpg"],
+  ["Task complete", "task-complete.jpg"],
+  ["Activity history", "activity-history.jpg"],
 ] as const;
 
-const N = people.length;
+const N = slides.length;
 const VIS = Math.max(1, Math.floor((N - 1) / 2) - 1);
 const INTRO_MS = 980;
 const INTRO_STAGGER = 72;
@@ -105,7 +105,7 @@ export default function ImageCarousel() {
   const [intro, setIntro] = useState<"pending" | "dot" | "fan" | "done">("pending");
   const stageRef = useRef<HTMLDivElement>(null);
   const swipeX = useRef<number | null>(null);
-  const prevOff = useRef(people.map((_, i) => wrapOffset(i, 0)));
+  const prevOff = useRef(slides.map((_, i) => wrapOffset(i, 0)));
   const introStarted = useRef(false);
 
   const move = (d: number) => setActive((a) => (a + d + N) % N);
@@ -156,7 +156,7 @@ export default function ImageCarousel() {
   useEffect(() => {
     if (introing) return;
     const next = new Set<number>();
-    people.forEach((_, i) => {
+    slides.forEach((_, i) => {
       const off = wrapOffset(i, active);
       if (Math.abs(off - prevOff.current[i]) > VIS) next.add(i);
       prevOff.current[i] = off;
@@ -167,7 +167,7 @@ export default function ImageCarousel() {
     return () => cancelAnimationFrame(f);
   }, [active, introing]);
 
-  const [name, role] = people[active];
+  const [label] = slides[active];
 
   return (
     <div
@@ -175,7 +175,7 @@ export default function ImageCarousel() {
       ref={stageRef}
       role="region"
       aria-roledescription="carousel"
-      aria-label="Team portraits in orbit"
+      aria-label="Product workflow screenshots in orbit"
       aria-busy={introing}
       tabIndex={0}
       onFocusCapture={() => setPaused(true)}
@@ -209,7 +209,7 @@ export default function ImageCarousel() {
       }}
     >
       <div className="carousel-cards" aria-live="off">
-        {people.map(([pName, pRole, slug], i) => {
+        {slides.map(([slideLabel, image], i) => {
           const offset = wrapOffset(i, active);
           const isActive = offset === 0;
           const seat = orbit(offset, size.w, size.h, isActive);
@@ -229,10 +229,10 @@ export default function ImageCarousel() {
 
           return (
             <button
-              key={pName}
+              key={slideLabel}
               type="button"
               className={cls}
-              aria-label={isActive ? `${pName}, ${pRole}` : `Show ${pName}`}
+              aria-label={isActive ? slideLabel : `Show ${slideLabel} screenshot`}
               aria-hidden={style.seam}
               tabIndex={introing || style.seam || Math.abs(offset) > VIS ? -1 : 0}
               onClick={() => {
@@ -247,8 +247,8 @@ export default function ImageCarousel() {
               }}
             >
               <img
-                src={`/people/${slug}.jpg`}
-                alt=""
+                src={`/screenshots/${image}`}
+                alt={`${slideLabel} product screenshot`}
                 width={900}
                 height={1200}
                 loading={i < 4 ? "eager" : "lazy"}
@@ -257,15 +257,14 @@ export default function ImageCarousel() {
               />
               <span className="carousel-card-shade" aria-hidden="true" />
               <span className="carousel-caption">
-                <strong>{pName}</strong>
-                <span>{pRole}</span>
+                <strong>{slideLabel}</strong>
               </span>
             </button>
           );
         })}
       </div>
       <p className="sr-only" aria-live="polite" aria-atomic="true">
-        Slide {active + 1} of {N}: {name}, {role}
+        Slide {active + 1} of {N}: {label}
       </p>
     </div>
   );
