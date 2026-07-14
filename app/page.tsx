@@ -1,3 +1,4 @@
+import ConnectorsSection from "./ConnectorsSection";
 import ImageCarousel from "./ImageCarousel";
 
 export default function Home() {
@@ -10,9 +11,9 @@ export default function Home() {
         <nav className="nav-links" aria-label="Main">
           <a href="#product">Product</a>
           <a href="#about">About Us</a>
-          <a href="#blog">BLOG</a>
+          <a href="/blog">BLOG</a>
         </nav>
-        <a className="nav-cta" href="#waitlist">
+        <a className="nav-cta" href="/waitlist">
           Join Waitlist
         </a>
       </header>
@@ -23,16 +24,17 @@ export default function Home() {
         <div className="brand-intro-lead">
           <h1 id="brand-heading">Wake up to work that&apos;s already done.</h1>
         </div>
-        <div className="brand-intro-copy" id="waitlist">
+        <div className="brand-intro-copy">
           <p>
             Schedule intelligent agents, connect your favorite apps, and let AI handle the routines
             that keep your life moving—so work gets done before you even think about it.
           </p>
-          <a className="nav-cta intro-cta" href="#waitlist">
+          <a className="nav-cta intro-cta" href="/waitlist">
             Join Waitlist
           </a>
         </div>
       </section>
+      <ConnectorsSection />
     </main>
   );
 }
