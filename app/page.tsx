@@ -1,4 +1,5 @@
 import ConnectorsSection from "./ConnectorsSection";
+import DemoSection from "./DemoSection";
 import ImageCarousel from "./ImageCarousel";
 
 export default function Home() {
@@ -35,6 +36,7 @@ export default function Home() {
         </div>
       </section>
       <ConnectorsSection />
+      <DemoSection />
     </main>
   );
 }
