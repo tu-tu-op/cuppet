@@ -33,49 +33,28 @@ function wrapOffset(i: number, active: number) {
 
 function orbit(offset: number, w: number, h: number, isActive: boolean) {
   const seam = Math.abs(offset) > VIS;
-  // Equal seat steps on the arc (not stretched by card size)
   const seat = Math.max(-VIS, Math.min(VIS, offset));
-  const t = seam
-    ? Math.sign(offset || 1) * 1.08
-    : VIS === 0
-      ? 0
-      : seat / VIS;
+  const t = seam ? Math.sign(offset || 1) * 1.08 : VIS === 0 ? 0 : seat / VIS;
   const abs = Math.min(Math.abs(t), 1);
-
-  // Front arc along a shared ellipse (seat steps, not card size)
   const maxAngle = (Math.PI / 2) * 0.7;
-  const spaced = Math.sign(t) * Math.pow(abs || 0, 0.9);
-  const angle = spaced * maxAngle;
-
+  const angle = Math.sign(t) * Math.pow(abs || 0, 0.9) * maxAngle;
   const base = (w / Math.max(N - 2, 1)) * 1.15;
-  // Mid max larger; all other seats min smaller
   const widthPx = Math.max(32, base * (isActive ? 1.55 : 0.48));
-
-  // Shared ellipse for every seat (must not depend on card width)
   const rx = w * 0.42;
   const rz = Math.min(w, h) * 0.34;
-
-  // Convex path: mid highest, sides drop — peak kept below navbar
   const y = h * (-0.06 + abs * abs * 0.14);
-
-  // Tip follows the downhill slope on the sides; yaw stays tangent to the arc
   const tip = 10 + abs * 9;
   const yaw = -angle * (180 / Math.PI);
-
   let opacity = 0.58 + (1 - abs) * 0.42;
   if (Math.abs(offset) === VIS) opacity *= 0.7;
   if (seam) opacity = 0;
-
   const x = Math.sin(angle) * rx;
-  // Mid stays forward; sides recede along the convex ribbon
   const z = Math.cos(angle) * rz - rz;
-
   return {
     width: `${widthPx.toFixed(2)}px`,
     opacity,
     zIndex: seam ? 0 : Math.round(40 + (1 - abs) * 40 + (isActive ? 20 : 0)),
     seam,
-    // Center on path first, then rotate around card center (keeps L/R on the arc)
     transform: [
       `translate3d(-50%, -50%, 0)`,
       ` translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, ${z.toFixed(1)}px)`,
@@ -85,7 +64,6 @@ function orbit(offset: number, w: number, h: number, isActive: boolean) {
   };
 }
 
-/** Center seed for the load intro — one minimal mid-stage dot */
 function introDot(seam: boolean) {
   return {
     width: "28px",
@@ -101,7 +79,6 @@ export default function ImageCarousel() {
   const [paused, setPaused] = useState(false);
   const [size, setSize] = useState({ w: 1280, h: 640 });
   const [wrapping, setWrapping] = useState<Set<number>>(new Set());
-  // pending → measure, dot → paint at center, fan → orbit seats, done → normal
   const [intro, setIntro] = useState<"pending" | "dot" | "fan" | "done">("pending");
   const stageRef = useRef<HTMLDivElement>(null);
   const swipeX = useRef<number | null>(null);
@@ -119,11 +96,7 @@ export default function ImageCarousel() {
       setSize({ w: Math.max(r.width, 320), h: Math.max(r.height, 360) });
       if (introStarted.current) return;
       introStarted.current = true;
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        setIntro("done");
-      } else {
-        setIntro("dot");
-      }
+      setIntro(window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "done" : "dot");
     };
     measure();
     const ro = new ResizeObserver(measure);
@@ -131,12 +104,9 @@ export default function ImageCarousel() {
     return () => ro.disconnect();
   }, []);
 
-  // Paint the center-dot frame, then fan into orbit seats
   useEffect(() => {
     if (intro !== "dot") return;
-    const id = requestAnimationFrame(() => {
-      requestAnimationFrame(() => setIntro("fan"));
-    });
+    const id = requestAnimationFrame(() => requestAnimationFrame(() => setIntro("fan")));
     return () => cancelAnimationFrame(id);
   }, [intro]);
 
@@ -152,7 +122,6 @@ export default function ImageCarousel() {
     return () => clearInterval(id);
   }, [active, paused, introing]);
 
-  // Seam jump: skip CSS transition so cards don't fly across the orbit
   useEffect(() => {
     if (introing) return;
     const next = new Set<number>();

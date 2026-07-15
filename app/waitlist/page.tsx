@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import SiteNav from "../SiteNav";
 import WaitlistForm from "./WaitlistForm";
 
 export const metadata: Metadata = {
@@ -9,20 +10,7 @@ export const metadata: Metadata = {
 export default function WaitlistPage() {
   return (
     <main className="page waitlist-page">
-      <header className="site-nav" aria-label="Primary">
-        <a className="nav-brand" href="/">
-          Cuppet
-        </a>
-        <nav className="nav-links" aria-label="Main">
-          <a href="/#product">Product</a>
-          <a href="/#about">About Us</a>
-          <a href="/blog">BLOG</a>
-        </nav>
-        <a className="nav-cta" href="/waitlist" aria-current="page">
-          Join Waitlist
-        </a>
-      </header>
-
+      <SiteNav current="waitlist" root />
       <section className="waitlist-shell" aria-labelledby="waitlist-heading">
         <div className="waitlist-card">
           <a className="waitlist-page-back" href="/">

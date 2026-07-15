@@ -231,12 +231,17 @@ function ResultPreview() {
   );
 }
 
+const previews = {
+  opening: HomePreview,
+  connectors: ConnectorsPreview,
+  command: CommandPreview,
+  working: WorkingPreview,
+  result: ResultPreview,
+} as const;
+
 function PreviewScreen({ chapter }: { chapter: Chapter }) {
-  if (chapter.id === "connectors") return <ConnectorsPreview />;
-  if (chapter.id === "command") return <CommandPreview />;
-  if (chapter.id === "working") return <WorkingPreview />;
-  if (chapter.id === "result") return <ResultPreview />;
-  return <HomePreview />;
+  const Screen = previews[chapter.id];
+  return <Screen />;
 }
 
 export default function DemoSection() {
