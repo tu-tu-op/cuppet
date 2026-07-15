@@ -430,11 +430,12 @@ button {
   z-index: 50;
   top: 50%;
   left: 50%;
-  width: min(480px, calc(100vw - 32px));
+  /* translate stays out of `transform` so the enter animation can't un-center the dialog */
+  translate: -50% -50%;
+  width: min(480px, calc(100% - 32px));
   max-height: min(70vh, 520px);
   padding: 32px;
   overflow: auto;
-  transform: translate(-50%, -50%);
   background: var(--bg);
   border: 1px solid rgba(84, 117, 100, 0.22);
   border-radius: 16px;
