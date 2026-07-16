@@ -142,6 +142,7 @@ button {
 }
 
 .hero {
+  position: relative;
   padding: 4px 0 10px;
   margin-top: 0;
 }
@@ -161,7 +162,7 @@ button {
   align-items: start;
   gap: clamp(80px, 14vw, 220px);
   margin-top: 0;
-  padding: clamp(48px, 6vw, 72px) clamp(24px, 4vw, 56px) clamp(40px, 5vw, 56px);
+  padding: clamp(48px, 6vw, 72px) clamp(24px, 4vw, 56px) clamp(20px, 3vw, 32px);
 }
 
 .brand-intro-lead h1 {
@@ -188,9 +189,15 @@ button {
   line-height: 1.7;
 }
 
-.intro-cta {
-  justify-self: start;
-  margin-top: 28px;
+.hero-cta {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  bottom: clamp(20px, 3vw, 32px);
+  left: 0;
+  display: flex;
+  width: fit-content;
+  margin: 0 auto;
 }
 
 .connectors-page {
@@ -1367,7 +1374,7 @@ button {
     grid-template-columns: 1fr;
     gap: 40px;
     margin-top: 0;
-    padding: 40px 20px;
+    padding: 40px 20px 20px;
   }
 
   .brand-intro-lead h1 {

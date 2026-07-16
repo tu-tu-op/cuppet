@@ -17,13 +17,13 @@ export default function Home() {
             Schedule intelligent agents, connect your favorite apps, and let AI handle the routines
             that keep your life moving—so work gets done before you even think about it.
           </p>
-          <a className="nav-cta intro-cta" href="/waitlist">
-            Join Waitlist
-          </a>
         </div>
       </section>
       <section className="hero" id="product" aria-label="Product demo carousel">
         <ImageCarousel />
+        <a className="nav-cta hero-cta" href="/waitlist">
+          Join Waitlist
+        </a>
       </section>
       <ConnectorsSection />
       <DemoSection />
