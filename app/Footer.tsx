@@ -18,7 +18,7 @@ const linkGroups = [
     links: [
       ["Blog", "/blog"],
       ["Changelog", "/changelog"],
-      ["FAQ", "/faq"],
+      ["FAQ", "/#faq"],
     ],
   },
   {
