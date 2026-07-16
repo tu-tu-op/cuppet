@@ -1,7 +1,7 @@
 type Props = {
   /** Which nav item is current, if any */
-  current?: "blog" | "waitlist";
-  /** Prefix product/about links with `/` for non-home pages */
+  current?: "about" | "blog" | "waitlist";
+  /** Prefix the product link with `/` for non-home pages */
   root?: boolean;
 };
 
@@ -14,7 +14,9 @@ export default function SiteNav({ current, root }: Props) {
       </a>
       <nav className="nav-links" aria-label="Main">
         <a href={`${base}#product`}>Product</a>
-        <a href={`${base}#about`}>About Us</a>
+        <a href="/about" {...(current === "about" ? { "aria-current": "page" as const } : {})}>
+          About Us
+        </a>
         <a href="/blog" {...(current === "blog" ? { "aria-current": "page" as const } : {})}>
           BLOG
         </a>
