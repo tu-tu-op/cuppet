@@ -146,6 +146,15 @@ button {
   margin-top: 0;
 }
 
+.brand-intro,
+.connectors-page,
+.demo-page {
+  width: 100%;
+  max-width: 1280px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .brand-intro {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
