@@ -8,9 +8,6 @@ export default function Home() {
   return (
     <main className="page">
       <SiteNav />
-      <section className="hero" id="product" aria-label="Product demo carousel">
-        <ImageCarousel />
-      </section>
       <section className="brand-intro" id="about" aria-labelledby="brand-heading">
         <div className="brand-intro-lead">
           <h1 id="brand-heading">Wake up to work that&apos;s already done.</h1>
@@ -24,6 +21,9 @@ export default function Home() {
             Join Waitlist
           </a>
         </div>
+      </section>
+      <section className="hero" id="product" aria-label="Product demo carousel">
+        <ImageCarousel />
       </section>
       <ConnectorsSection />
       <DemoSection />

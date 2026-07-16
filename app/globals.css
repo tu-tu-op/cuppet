@@ -151,8 +151,8 @@ button {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: start;
   gap: clamp(80px, 14vw, 220px);
-  margin-top: -144px;
-  padding: 20px clamp(24px, 4vw, 56px) clamp(40px, 5vw, 56px);
+  margin-top: 0;
+  padding: clamp(48px, 6vw, 72px) clamp(24px, 4vw, 56px) clamp(40px, 5vw, 56px);
 }
 
 .brand-intro-lead h1 {
@@ -1357,8 +1357,8 @@ button {
   .brand-intro {
     grid-template-columns: 1fr;
     gap: 40px;
-    margin-top: -104px;
-    padding: 20px 20px 40px;
+    margin-top: 0;
+    padding: 40px 20px;
   }
 
   .brand-intro-lead h1 {
