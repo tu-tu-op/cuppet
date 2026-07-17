@@ -19,7 +19,8 @@ const slides = [
 ] as const;
 
 const N = slides.length;
-const VIS = Math.max(1, Math.floor((N - 1) / 2) - 1);
+// Hide outermost seat on each side so left/right tails don't crowd the stage.
+const VIS = Math.max(1, Math.floor((N - 1) / 2) - 2);
 const INTRO_MS = 980;
 const INTRO_STAGGER = 72;
 
@@ -37,10 +38,11 @@ function orbit(offset: number, w: number, h: number, isActive: boolean) {
   const t = seam ? Math.sign(offset || 1) * 1.08 : VIS === 0 ? 0 : seat / VIS;
   const abs = Math.min(Math.abs(t), 1);
   const maxAngle = (Math.PI / 2) * 0.7;
-  const angle = Math.sign(t) * Math.pow(abs || 0, 0.9) * maxAngle;
+  // Softer power + extra gap so mid card isn't glued to first left/right.
+  const angle = Math.sign(t) * Math.pow(abs || 0, 0.75) * maxAngle;
   const base = (w / Math.max(N - 2, 1)) * 1.15;
   const widthPx = Math.max(32, base * (isActive ? 1.55 : 0.48));
-  const rx = w * 0.42;
+  const rx = w * 0.48;
   const rz = Math.min(w, h) * 0.34;
   const y = h * (-0.06 + abs * abs * 0.14);
   const tip = 10 + abs * 9;
@@ -48,7 +50,8 @@ function orbit(offset: number, w: number, h: number, isActive: boolean) {
   let opacity = 0.58 + (1 - abs) * 0.42;
   if (Math.abs(offset) === VIS) opacity *= 0.7;
   if (seam) opacity = 0;
-  const x = Math.sin(angle) * rx;
+  const gap = abs > 0 ? w * 0.04 : 0;
+  const x = Math.sin(angle) * rx + Math.sign(t || 0) * gap;
   const z = Math.cos(angle) * rz - rz;
   return {
     width: `${widthPx.toFixed(2)}px`,
@@ -80,8 +83,12 @@ export default function ImageCarousel() {
   const [size, setSize] = useState({ w: 1280, h: 640 });
   const [wrapping, setWrapping] = useState<Set<number>>(new Set());
   const [intro, setIntro] = useState<"pending" | "dot" | "fan" | "done">("pending");
+  const [dragging, setDragging] = useState(false);
+  const [openSlide, setOpenSlide] = useState<number | null>(null);
   const stageRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const swipeX = useRef<number | null>(null);
+  const suppressClick = useRef(false);
   const prevOff = useRef(slides.map((_, i) => wrapOffset(i, 0)));
   const introStarted = useRef(false);
 
@@ -117,10 +124,15 @@ export default function ImageCarousel() {
   }, [intro]);
 
   useEffect(() => {
-    if (introing || paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (introing || paused || dragging || openSlide !== null || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const id = setInterval(() => move(1), 4800);
     return () => clearInterval(id);
-  }, [active, paused, introing]);
+  }, [active, paused, dragging, introing, openSlide]);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (openSlide !== null && dialog && !dialog.open) dialog.showModal();
+  }, [openSlide]);
 
   useEffect(() => {
     if (introing) return;
@@ -137,10 +149,13 @@ export default function ImageCarousel() {
   }, [active, introing]);
 
   const [label] = slides[active];
+  const openedSlide = openSlide === null ? null : slides[openSlide];
 
   return (
     <div
-      className={["carousel-stage", introing && "is-introing"].filter(Boolean).join(" ")}
+      className={["carousel-stage", introing && "is-introing", dragging && "is-dragging"]
+        .filter(Boolean)
+        .join(" ")}
       ref={stageRef}
       role="region"
       aria-roledescription="carousel"
@@ -164,17 +179,36 @@ export default function ImageCarousel() {
         }
       }}
       onPointerDown={(e) => {
-        if (introing) return;
-        if (e.pointerType === "touch") swipeX.current = e.clientX;
+        if (introing || openSlide !== null || !e.isPrimary || e.button !== 0) return;
+        swipeX.current = e.clientX;
+        suppressClick.current = false;
+        setDragging(true);
+      }}
+      onPointerMove={(e) => {
+        if (swipeX.current !== null && Math.abs(e.clientX - swipeX.current) > 8) {
+          suppressClick.current = true;
+          if (!e.currentTarget.hasPointerCapture(e.pointerId)) {
+            e.currentTarget.setPointerCapture(e.pointerId);
+          }
+        }
       }}
       onPointerUp={(e) => {
-        if (introing || e.pointerType !== "touch" || swipeX.current === null) return;
+        if (introing || swipeX.current === null) return;
         const d = e.clientX - swipeX.current;
         swipeX.current = null;
+        setDragging(false);
+        if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+          e.currentTarget.releasePointerCapture(e.pointerId);
+        }
         if (Math.abs(d) > 42) move(d > 0 ? -1 : 1);
+        window.setTimeout(() => {
+          suppressClick.current = false;
+        }, 0);
       }}
       onPointerCancel={() => {
         swipeX.current = null;
+        suppressClick.current = false;
+        setDragging(false);
       }}
     >
       <div className="carousel-cards" aria-live="off">
@@ -188,6 +222,8 @@ export default function ImageCarousel() {
           const cls = [
             "carousel-card",
             isActive && "active",
+            // Grab cursor only on mid + first left/right (not whole stage).
+            Math.abs(offset) <= 1 && !style.seam && "is-drag-zone",
             (style.seam || isWrap) && "is-seam",
             isWrap && "no-transition",
             intro === "dot" || intro === "pending" ? "is-intro-dot" : "",
@@ -201,11 +237,14 @@ export default function ImageCarousel() {
               key={slideLabel}
               type="button"
               className={cls}
-              aria-label={isActive ? slideLabel : `Show ${slideLabel} screenshot`}
+              aria-label={isActive ? `Open ${slideLabel} screenshot` : `Show ${slideLabel} screenshot`}
+              aria-haspopup={isActive ? "dialog" : undefined}
               aria-hidden={style.seam}
               tabIndex={introing || style.seam || Math.abs(offset) > VIS ? -1 : 0}
               onClick={() => {
-                if (!introing && !style.seam) setActive(i);
+                if (introing || style.seam || suppressClick.current) return;
+                if (isActive) setOpenSlide(i);
+                else setActive(i);
               }}
               style={{
                 width: style.width,
@@ -235,6 +274,35 @@ export default function ImageCarousel() {
       <p className="sr-only" aria-live="polite" aria-atomic="true">
         Slide {active + 1} of {N}: {label}
       </p>
+      <dialog
+        id="carousel-lightbox"
+        className="carousel-lightbox"
+        ref={dialogRef}
+        aria-label={openedSlide ? `${openedSlide[0]} screenshot` : "Product screenshot"}
+        onClose={() => setOpenSlide(null)}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) e.currentTarget.close();
+        }}
+      >
+        {openedSlide && (
+          <>
+            <button
+              type="button"
+              className="carousel-lightbox-close"
+              aria-label="Close screenshot"
+              onClick={() => dialogRef.current?.close()}
+            >
+              ×
+            </button>
+            <img
+              src={`/screenshots/${openedSlide[1]}`}
+              alt={`${openedSlide[0]} product screenshot`}
+              draggable={false}
+            />
+            <p>{openedSlide[0]}</p>
+          </>
+        )}
+      </dialog>
     </div>
   );
 }
