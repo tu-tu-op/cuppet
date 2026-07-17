@@ -178,6 +178,7 @@ button {
 .brand-intro-copy {
   justify-self: end;
   max-width: 560px;
+  transform: translateX(clamp(16px, 2.5vw, 40px));
 }
 
 .brand-intro-copy > p {
