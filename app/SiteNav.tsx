@@ -35,7 +35,7 @@ export default function SiteNav({ current }: Props) {
         href="/waitlist"
         {...(current === "waitlist" ? { "aria-current": "page" as const } : {})}
       >
-        Join Waitlist
+        Join the waitlist
       </a>
     </header>
   );

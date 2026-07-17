@@ -5,7 +5,7 @@ import BlogIndex from "./BlogIndex";
 
 const title = "Scheduled AI Agents and Everyday Automation | Cuppet Blog";
 const description =
-  "Practical guides to scheduled AI agents, connected apps, productivity workflows, reminders, and everyday automation from the team building Cuppet.";
+  "Practical guides from the Cuppet team on scheduled AI agents, connected apps, productivity, reminders, and everyday automation.";
 
 export const metadata: Metadata = {
   title,

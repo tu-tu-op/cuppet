@@ -23,9 +23,9 @@ const articles = [
   {
     slug: "connected-apps-ai-context",
     category: "Connectors",
-    title: "How Connected Apps Give AI Real Context",
+    title: "Why AI Agents Need Connected Apps",
     excerpt:
-      "Why useful automation depends on the right calendar, inbox, and workspace context, plus clear permission boundaries.",
+      "Useful automation needs the right calendar, inbox, and workspace context, with clear limits on access.",
     date: "2026-07-11",
     displayDate: "July 11, 2026",
     readTime: "6 min read",
@@ -45,7 +45,7 @@ const articles = [
     category: "Scheduled Agents",
     title: "Why AI Works Better When It Runs on a Schedule",
     excerpt:
-      "A schedule turns a useful prompt into a dependable routine that starts with fresh context and arrives when it matters.",
+      "A schedule turns a useful prompt into a dependable routine that uses the latest context and runs when it matters.",
     date: "2026-07-02",
     displayDate: "July 2, 2026",
     readTime: "5 min read",
@@ -55,7 +55,7 @@ const articles = [
     category: "Productivity",
     title: "Building a Personal AI Workflow for Busy Days",
     excerpt:
-      "A calm way to decide what an agent should gather, what it can act on, and where a human review still belongs.",
+      "How to decide what an agent should gather, what it can act on, and where human review still matters.",
     date: "2026-06-26",
     displayDate: "June 26, 2026",
     readTime: "8 min read",
@@ -65,7 +65,7 @@ const articles = [
     category: "Tutorials",
     title: "How to Turn Reminders into Real Action",
     excerpt:
-      "Move beyond a notification by pairing timing with context, a clear next step, and approval before anything sensitive happens.",
+      "A useful reminder needs more than timing. It needs context, a clear next step, and approval for sensitive actions.",
     date: "2026-06-19",
     displayDate: "June 19, 2026",
     readTime: "6 min read",
@@ -75,7 +75,7 @@ const articles = [
     category: "Product Updates",
     title: "Product Update: What We Shipped This Week",
     excerpt:
-      "A short build log covering clearer agent activity, connector permissions, and the details we are tightening before launch.",
+      "A short build log on clearer agent activity, connector permissions, and the details we're refining before launch.",
     date: "2026-06-13",
     displayDate: "June 13, 2026",
     readTime: "4 min read",
@@ -86,7 +86,7 @@ const relatedLinks = [
   ["Connected tools", "See where agents get useful context.", "/#connectors"],
   ["Product walkthrough", "Follow one routine from request to result.", "/#demo"],
   ["Common questions", "Read about access, privacy, and scheduled work.", "/#faq"],
-  ["Why Cuppet", "Learn what we are building and why.", "/about"],
+  ["Why Cuppet", "What we're building and why.", "/about"],
 ] as const;
 
 export default function BlogIndex() {
@@ -108,8 +108,8 @@ export default function BlogIndex() {
           </p>
           <h1 id="blog-heading">Scheduled AI agents for everyday workflows.</h1>
           <p className={styles.heroLead}>
-            Practical guides to connected apps, useful automation, and routines that keep moving
-            without another round of asking.
+            Practical guides to connected apps, useful automation, and routines that run without
+            another prompt.
           </p>
           <p className={styles.editorialNote}>
             Field notes from building Cuppet, written for people who want useful routines rather
@@ -130,8 +130,8 @@ export default function BlogIndex() {
             </div>
             <h2 id="featured-title">What Are Scheduled AI Agents? A Practical Guide</h2>
             <p>
-              A scheduled agent is a reusable job with timing, connected context, and boundaries
-              you approve. Here is how that changes a helpful answer into work that arrives ready.
+              A scheduled agent is a reusable job with a set time, connected apps, and limits you
+              approve. It turns a useful answer into work that&apos;s ready when you need it.
             </p>
             <a href="#latest-guides">
               Explore the guides
@@ -180,8 +180,8 @@ export default function BlogIndex() {
             <h2 id="latest-guides">Practical guides and build notes</h2>
           </div>
           <p>
-            Start with the part of connected automation you are working through now. Every topic
-            stays grounded in a routine someone could actually use.
+            Start with the part of connected automation you&apos;re working on. Each guide is
+            grounded in a routine someone could actually use.
           </p>
         </div>
 
@@ -224,8 +224,8 @@ export default function BlogIndex() {
       >
         <div className={styles.relatedIntro}>
           <p>Keep exploring</p>
-          <h2 id="related-heading">See how the ideas work in Cuppet.</h2>
-          <a className="nav-cta" href="/waitlist">Join Waitlist</a>
+          <h2 id="related-heading">See these ideas at work in Cuppet.</h2>
+          <a className="nav-cta" href="/waitlist">Join the waitlist</a>
         </div>
         <nav className={styles.relatedGrid} aria-label="Related Cuppet pages">
           {relatedLinks.map(([title, description, href]) => (

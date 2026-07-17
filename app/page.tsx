@@ -17,8 +17,8 @@ export default function Home() {
         </div>
         <div className="brand-intro-copy">
           <p>
-            Connect the apps you use, schedule an agent once, and get the result when it matters—without
-            opening another chat every morning.
+            Connect the apps you use and schedule an agent once. You&apos;ll get the result when it
+            matters, without opening another chat every morning.
           </p>
         </div>
       </section>

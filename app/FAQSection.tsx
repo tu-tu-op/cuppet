@@ -4,27 +4,27 @@ const faqs = [
   {
     question: "What does Cuppet do?",
     answer:
-      "You connect apps you already use, describe a routine in plain language, and an agent runs it on the schedule you set.",
+      "Connect the apps you already use, describe a routine in plain language, and choose a schedule. A Cuppet agent runs it for you.",
   },
   {
     question: "How is this different from a chatbot?",
     answer:
-      "A chatbot waits for you to open it. Cuppet is for work that should run without another prompt, with a clear log of what happened.",
+      "A chatbot waits for you to open it. Cuppet runs scheduled work without another prompt and keeps a log of what happened.",
   },
   {
     question: "What is a scheduled agent?",
     answer:
-      "A saved task with a time, connected tools, and limits you approve—like a weekday morning brief or a weekly digest.",
+      "A saved task with a schedule, connected tools, and limits you approve. It could be a weekday morning brief or a weekly digest.",
   },
   {
     question: "Which apps can I connect?",
     answer:
-      "We are building connectors for tools like Gmail, Calendar, Drive, Docs, Notion, and Slack. More will land over time; each connection is optional.",
+      "We're building connectors for tools like Gmail, Calendar, Drive, Docs, Notion, and Slack. More are planned, and every connection is optional.",
   },
   {
     question: "Is my data private?",
     answer:
-      "Access is permission-based. You pick which apps an agent can use and review that access before approving it.",
+      "You control access. Choose which apps an agent can use, then review those permissions before approving them.",
   },
 ] as const;
 
@@ -35,7 +35,7 @@ export default function FAQSection() {
         <span className="section-cross" aria-hidden="true" />
         <p>FAQ</p>
         <h2 id="faq-heading">Common questions</h2>
-        <span>Short answers on how Cuppet works, connectors, and privacy.</span>
+        <span>Quick answers about how Cuppet works, connectors, and privacy.</span>
       </div>
 
       <div className={styles.faqList}>

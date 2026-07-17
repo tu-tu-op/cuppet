@@ -155,13 +155,13 @@ const features = [
   {
     label: "Timing",
     title: "Schedule once",
-    description: "Pick what should run and when. Recurring work keeps the same cadence.",
+    description: "Pick what should run and when. It follows that schedule until you change it.",
     Scene: ScheduleScene,
   },
   {
     label: "Context",
     title: "Connect your tools",
-    description: "Mail, calendars, notes, and tasks—only with access you approve.",
+    description: "Mail, calendars, notes, and tasks, with only the access you approve.",
     Scene: ConnectScene,
   },
   {
@@ -173,13 +173,13 @@ const features = [
   {
     label: "Progress",
     title: "It runs on time",
-    description: "Agents start when scheduled and leave a clear trail of each step.",
+    description: "Agents start on schedule and log every step along the way.",
     Scene: RunScene,
   },
   {
     label: "Permission",
     title: "You stay in control",
-    description: "Approve sensitive actions before they go out. See what changed after.",
+    description: "Approve sensitive actions before they happen. Review what changed afterward.",
     Scene: ApprovalScene,
   },
   {

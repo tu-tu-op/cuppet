@@ -39,36 +39,36 @@ import LogoLoop from "./LogoLoop";
 type Connector = { name: string; color: string; Icon: IconType; description: string };
 
 const connectorCatalog: Connector[] = [
-  { name: "Gmail", color: "#ea4335", Icon: SiGmail, description: "Read threads, draft replies, and kick off the next step from email." },
-  { name: "Google Calendar", color: "#4285f4", Icon: SiGooglecalendar, description: "See availability, adjust events, and time work around what's on the calendar." },
-  { name: "Google Drive", color: "#0f9d58", Icon: SiGoogledrive, description: "Find files, pull context, and save finished work where the team expects it." },
-  { name: "Google Docs", color: "#4285f4", Icon: SiGoogledocs, description: "Draft and update docs so written work stays current without manual rewrites." },
-  { name: "Google Sheets", color: "#0f9d58", Icon: SiGooglesheets, description: "Update rows, pull metrics, and keep operational sheets accurate." },
+  { name: "Gmail", color: "#ea4335", Icon: SiGmail, description: "Read threads, draft replies, and move work forward from your inbox." },
+  { name: "Google Calendar", color: "#4285f4", Icon: SiGooglecalendar, description: "See what's free and update events. Scheduled work fits around the rest of your calendar." },
+  { name: "Google Drive", color: "#0f9d58", Icon: SiGoogledrive, description: "Find the right files, work from their contents, and save results where your team expects them." },
+  { name: "Google Docs", color: "#4285f4", Icon: SiGoogledocs, description: "Draft new documents and keep existing ones up to date." },
+  { name: "Google Sheets", color: "#0f9d58", Icon: SiGooglesheets, description: "Read key metrics, update rows, and keep operational sheets accurate." },
   { name: "Notion", color: "#1c1a17", Icon: SiNotion, description: "Reference pages, update databases, and keep shared notes current." },
-  { name: "Slack", color: "#4a154b", Icon: FaSlack, description: "Read channels, post updates, and keep chat in sync with automated work." },
-  { name: "Discord", color: "#5865f2", Icon: SiDiscord, description: "Post progress, gather feedback, and route important messages." },
-  { name: "Microsoft Teams", color: "#6264a7", Icon: BiLogoMicrosoftTeams, description: "Tie chats and meetings into scheduled routines at work." },
-  { name: "Zoom", color: "#2d8cff", Icon: SiZoom, description: "Prep meeting context and capture follow-ups after calls." },
+  { name: "Slack", color: "#4a154b", Icon: FaSlack, description: "Read channels and post updates so your team can follow the work in Slack." },
+  { name: "Discord", color: "#5865f2", Icon: SiDiscord, description: "Share progress, collect feedback, and route important messages to the right place." },
+  { name: "Microsoft Teams", color: "#6264a7", Icon: BiLogoMicrosoftTeams, description: "Bring chats and meetings into the routines you schedule for work." },
+  { name: "Zoom", color: "#2d8cff", Icon: SiZoom, description: "Prepare for meetings and capture the follow-ups after each call." },
   { name: "GitHub", color: "#1c1a17", Icon: SiGithub, description: "Follow issues, PRs, and repo changes without manual check-ins." },
-  { name: "GitLab", color: "#fc6d26", Icon: SiGitlab, description: "Track merge requests and pipelines as part of routine delivery checks." },
-  { name: "Linear", color: "#5e6ad2", Icon: SiLinear, description: "Triage issues, update status, and keep product work moving." },
+  { name: "GitLab", color: "#fc6d26", Icon: SiGitlab, description: "Include merge requests and pipeline status in your regular delivery checks." },
+  { name: "Linear", color: "#5e6ad2", Icon: SiLinear, description: "Triage issues and update their status as product work moves forward." },
   { name: "Jira", color: "#0052cc", Icon: SiJira, description: "Track tickets, update fields, and surface blockers." },
-  { name: "Confluence", color: "#172b4d", Icon: SiConfluence, description: "Find runbooks and docs, summarize them, and keep them updated." },
+  { name: "Confluence", color: "#172b4d", Icon: SiConfluence, description: "Find and summarize runbooks or docs, then keep them up to date." },
   { name: "Asana", color: "#f06a6a", Icon: SiAsana, description: "Update tasks, flag blockers, and keep recurring projects on track." },
-  { name: "Trello", color: "#0052cc", Icon: SiTrello, description: "Move cards and keep light project boards current." },
-  { name: "ClickUp", color: "#7b68ee", Icon: SiClickup, description: "Coordinate tasks and docs across multi-team workspaces." },
-  { name: "Todoist", color: "#e44332", Icon: SiTodoist, description: "Capture to-dos, prioritize them, and close them on time." },
+  { name: "Trello", color: "#0052cc", Icon: SiTrello, description: "Move cards and keep simple project boards up to date." },
+  { name: "ClickUp", color: "#7b68ee", Icon: SiClickup, description: "Coordinate tasks and docs in workspaces shared across teams." },
+  { name: "Todoist", color: "#e44332", Icon: SiTodoist, description: "Capture and prioritize to-dos, then mark them done on time." },
   { name: "Dropbox", color: "#0061ff", Icon: SiDropbox, description: "Locate shared files and keep deliverables organized." },
-  { name: "Box", color: "#0061d5", Icon: SiBox, description: "Work with enterprise files that need to stay searchable and ready." },
-  { name: "Figma", color: "#f24e1e", Icon: SiFigma, description: "Pull design context into product and marketing handoffs." },
-  { name: "Airtable", color: "#18bfff", Icon: SiAirtable, description: "Keep bases, views, and records in sync with day-to-day ops." },
-  { name: "HubSpot", color: "#ff7a59", Icon: SiHubspot, description: "Work with contacts and pipelines so follow-ups stay current." },
+  { name: "Box", color: "#0061d5", Icon: SiBox, description: "Keep enterprise files searchable, organized, and ready when your team needs them." },
+  { name: "Figma", color: "#f24e1e", Icon: SiFigma, description: "Bring design details into product and marketing handoffs." },
+  { name: "Airtable", color: "#18bfff", Icon: SiAirtable, description: "Keep Airtable bases, views, and records aligned with day-to-day work." },
+  { name: "HubSpot", color: "#ff7a59", Icon: SiHubspot, description: "Update contacts and pipelines so follow-ups don't fall behind." },
   { name: "Salesforce", color: "#00a1e0", Icon: FaSalesforce, description: "Keep opportunities and next steps accurate across the sales cycle." },
-  { name: "Stripe", color: "#635bff", Icon: SiStripe, description: "React to charges, invoices, and billing events in revenue routines." },
-  { name: "Shopify", color: "#96bf48", Icon: SiShopify, description: "Watch orders and inventory signals for store routines." },
+  { name: "Stripe", color: "#635bff", Icon: SiStripe, description: "Include charges, invoices, and other billing events in recurring revenue work." },
+  { name: "Shopify", color: "#96bf48", Icon: SiShopify, description: "Track orders and inventory changes as part of regular store operations." },
   { name: "Intercom", color: "#1f8ded", Icon: SiIntercom, description: "Handle common support questions with full conversation context." },
-  { name: "Zendesk", color: "#03363d", Icon: SiZendesk, description: "Triage tickets, summarize issues, and route with history intact." },
-  { name: "LinkedIn", color: "#0a66c2", Icon: FaLinkedin, description: "Help with outreach and updates without the daily grind." },
+  { name: "Zendesk", color: "#03363d", Icon: SiZendesk, description: "Triage tickets, summarize issues, and route them with their history intact." },
+  { name: "LinkedIn", color: "#0a66c2", Icon: FaLinkedin, description: "Handle routine outreach and updates without starting from scratch each day." },
 ];
 
 const connectorLogos = connectorCatalog.map(({ Icon, name, color }) => ({
@@ -154,8 +154,8 @@ export default function ConnectorsSection() {
         <span className="section-cross" aria-hidden="true" />
         <h2 id="connectors-heading">Connectors</h2>
         <p>
-          Plug in the apps you already use. Agents get the context they need without you jumping
-          between tabs.
+          Connect the apps you already use. Agents get the context they need, so you spend less
+          time moving between tabs.
         </p>
         <div className="connectors-loop" id="connector-loop">
           <LogoLoop

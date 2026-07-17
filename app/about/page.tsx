@@ -4,8 +4,8 @@ import SiteNav from "../SiteNav";
 import StorySection from "../StorySection";
 
 export const metadata: Metadata = {
-  title: "About Us — Cuppet",
-  description: "Why we are building Cuppet and what we are working on now.",
+  title: "About Us | Cuppet",
+  description: "Why we're building Cuppet and what we're working on now.",
 };
 
 export default function AboutPage() {

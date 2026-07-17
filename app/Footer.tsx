@@ -96,7 +96,7 @@ export default function Footer() {
             ))}
           </div>
           <a className="nav-cta footer-cta" href="/waitlist">
-            Join Waitlist
+            Join the waitlist
           </a>
         </div>
       </div>

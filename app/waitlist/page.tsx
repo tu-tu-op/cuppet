@@ -3,7 +3,7 @@ import SiteNav from "../SiteNav";
 import WaitlistForm from "./WaitlistForm";
 
 export const metadata: Metadata = {
-  title: "Join Waitlist — Cuppet",
+  title: "Join the Waitlist | Cuppet",
   description: "Join the Cuppet waitlist. Tell us how you’ll use it, then leave your name and email.",
 };
 
@@ -19,7 +19,7 @@ export default function WaitlistPage() {
           <p className="waitlist-kicker">Early access</p>
           <h1 id="waitlist-heading">Join the waitlist</h1>
           <p className="waitlist-lead">
-            First tell us how you plan to use Cuppet. Next we&apos;ll ask for your name and email.
+            Tell us how you plan to use Cuppet, then leave your name and email.
           </p>
           <WaitlistForm />
         </div>

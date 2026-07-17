@@ -8,7 +8,7 @@ const USE_TYPES = [
   { value: "personal", label: "Personal life", hint: "Home, habits, daily routines" },
   { value: "work", label: "Work", hint: "Solo productivity and focus" },
   { value: "team", label: "Team / company", hint: "Shared ops and workflows" },
-  { value: "exploring", label: "Just exploring", hint: "Not sure yet — that’s fine" },
+  { value: "exploring", label: "Just exploring", hint: "Not sure yet? That’s fine" },
 ] as const;
 
 export default function WaitlistForm() {
@@ -55,7 +55,7 @@ export default function WaitlistForm() {
         <fieldset className="waitlist-use">
           <legend className="waitlist-use-legend">How will you use Cuppet?</legend>
           <p className="waitlist-use-help" id="waitlist-use-help">
-            Pick what fits best. It helps us prioritize early access.
+            Pick the closest fit. It helps us prioritize early access.
           </p>
           <div className="waitlist-use-options" role="radiogroup" aria-describedby="waitlist-use-help">
             {USE_TYPES.map((opt) => (
@@ -119,7 +119,7 @@ export default function WaitlistForm() {
         />
       </div>
       <button className="nav-cta waitlist-submit" type="submit">
-        Join Waitlist
+        Join the waitlist
       </button>
       <p className="waitlist-note">No spam. Just an invite when it&apos;s your turn.</p>
     </form>

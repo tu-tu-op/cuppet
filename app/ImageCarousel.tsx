@@ -10,10 +10,10 @@ const slides = [
   ["Agent setup", "agent-setup.jpg"],
   ["Schedule your agent", "schedule-agent.jpg"],
   ["Chat with your agent", "agent-chat.jpg"],
-  ["Command to agent", "sending-a-command.jpg"],
+  ["Send a command", "sending-a-command.jpg"],
   ["Agent at work", "watching-the-agent-work.jpg"],
   ["Live progress", "live-status.jpg"],
-  ["Result returned", "reviewing-the-result.jpg"],
+  ["Review the result", "reviewing-the-result.jpg"],
   ["Task complete", "task-complete.jpg"],
   ["Activity history", "activity-history.jpg"],
 ] as const;

@@ -7,12 +7,12 @@ import { useInViewOnce } from "./useInViewOnce";
 const storySteps = [
   {
     title: "The daily loop",
-    description: "Same useful ask, every day. Starting from zero each morning got old fast.",
+    description: "We made the same useful request every day, only to start from zero each morning.",
     Icon: FiRepeat,
   },
   {
     title: "Schedule it once",
-    description: "Set the routine. Cuppet brings the result when you need it—no extra prompt.",
+    description: "Set the routine once. Cuppet brings the result when you need it, with no extra prompt.",
     Icon: FiClock,
   },
   {
@@ -22,7 +22,7 @@ const storySteps = [
   },
   {
     title: "Building in public",
-    description: "Still early. We're sharing progress and aiming for a public launch.",
+    description: "It's still early. We're sharing progress as we work toward a public launch.",
     Icon: FiRadio,
   },
 ] as const;
@@ -47,8 +47,8 @@ export default function StorySection() {
           </p>
           <h1 id="story-heading">AI that runs in the background, not another tab you babysit.</h1>
           <p className={styles.storyLead}>
-            We kept opening AI tools to ask for the same help every day. Cuppet is for that work:
-            scheduled, hooked into your apps, and done without starting over each morning.
+            We kept opening AI tools to ask for the same help every day. Cuppet puts that work on a
+            schedule, connects it to your apps, and gets it done without starting over each morning.
           </p>
 
           <blockquote className={styles.philosophy}>

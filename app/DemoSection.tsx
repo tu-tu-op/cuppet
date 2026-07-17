@@ -26,22 +26,22 @@ const chapters = [
   {
     id: "connectors",
     title: "Connecting your tools",
-    caption: "Approve Gmail, Calendar, and Notion once—only the access you allow.",
+    caption: "Connect Gmail, Calendar, and Notion once, with permissions you choose.",
   },
   {
     id: "command",
     title: "Sending a command",
-    caption: "Describe the outcome, set the schedule, and set guardrails.",
+    caption: "Describe the outcome, choose a schedule, and add guardrails.",
   },
   {
     id: "working",
     title: "Watching the agent work",
-    caption: "Follow each step as it gathers context and finishes the routine.",
+    caption: "Follow the agent as it gathers context and completes the routine.",
   },
   {
     id: "result",
     title: "Reviewing the result",
-    caption: "Open the finished brief, sources, and the actions taken.",
+    caption: "Review the finished brief, its sources, and every action taken.",
   },
 ] as const;
 
@@ -187,7 +187,7 @@ function WorkingPreview() {
           </div>
         ))}
       </div>
-      <div className="demo-live-note"><span /> Activity is saved to agent history.</div>
+      <div className="demo-live-note"><span /> This activity is saved in the agent history.</div>
     </div>
   );
 }
@@ -213,7 +213,7 @@ function ResultPreview() {
           <li><FiCheck aria-hidden="true" /> Meeting links added to calendar</li>
         </ul>
       </div>
-      <div className="demo-source-row"><FiLink2 aria-hidden="true" /><span><strong>8 sources</strong><small>View supporting context</small></span><FiChevronRight aria-hidden="true" /></div>
+      <div className="demo-source-row"><FiLink2 aria-hidden="true" /><span><strong>8 sources</strong><small>View sources</small></span><FiChevronRight aria-hidden="true" /></div>
       <button className="demo-review-button" type="button" tabIndex={-1}>Review brief</button>
     </div>
   );
