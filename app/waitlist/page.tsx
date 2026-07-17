@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function WaitlistPage() {
   return (
     <main className="page waitlist-page">
-      <SiteNav current="waitlist" root />
+      <SiteNav current="waitlist" />
       <section className="waitlist-shell" aria-labelledby="waitlist-heading">
         <div className="waitlist-card">
           <a className="waitlist-page-back" href="/">

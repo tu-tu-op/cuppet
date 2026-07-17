@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <main className="page">
-      <SiteNav current="about" root />
+      <SiteNav current="about" />
       <StorySection />
       <Footer />
     </main>

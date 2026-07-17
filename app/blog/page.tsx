@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function BlogPage() {
   return (
     <main className="page">
-      <SiteNav current="blog" root />
+      <SiteNav current="blog" />
     </main>
   );
 }
