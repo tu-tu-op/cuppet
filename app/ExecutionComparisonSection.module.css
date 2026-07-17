@@ -338,7 +338,8 @@
 
 @media (max-width: 760px) {
   .section {
-    padding: 24px 20px 72px;
+    padding-top: 24px;
+    padding-bottom: 72px;
   }
 
   .shell {
@@ -403,6 +404,13 @@
 
   .needCell h3 {
     order: 3;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding-right: 20px;
+    padding-left: 20px;
   }
 }
 
