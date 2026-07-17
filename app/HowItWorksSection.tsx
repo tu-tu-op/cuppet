@@ -201,7 +201,7 @@ export default function HowItWorksSection() {
     >
       <div className={styles.inner}>
         <header className={styles.intro}>
-          <p className={styles.eyebrow}><span aria-hidden="true" /> How it works</p>
+          <p className={styles.eyebrow}>How it works</p>
           <h2 id="how-it-works-heading">From schedule to finished work.</h2>
           <p className={styles.lead}>
             Connect your apps, set a time, and approve anything sensitive. Cuppet handles the rest.

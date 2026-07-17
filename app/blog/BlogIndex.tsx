@@ -102,10 +102,7 @@ export default function BlogIndex() {
         ref={heroRef}
       >
         <header className={styles.heroCopy}>
-          <p className={styles.eyebrow}>
-            <span aria-hidden="true" />
-            Cuppet Blog
-          </p>
+          <p className={styles.eyebrow}>Cuppet Blog</p>
           <h1 id="blog-heading">Scheduled AI agents for everyday workflows.</h1>
           <p className={styles.heroLead}>
             Practical guides to connected apps, useful automation, and routines that run without

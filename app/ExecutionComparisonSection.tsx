@@ -53,10 +53,7 @@ export default function ExecutionComparisonSection() {
     >
       <div className={styles.shell}>
         <header className={styles.intro}>
-          <p className={styles.eyebrow}>
-            <span aria-hidden="true" />
-            Chat vs Cuppet
-          </p>
+          <p className={styles.eyebrow}>Chat vs Cuppet</p>
           <div className={styles.introGrid}>
             <h2 id="comparison-heading">Chat ends when you close the tab. Cuppet keeps going.</h2>
             <p>

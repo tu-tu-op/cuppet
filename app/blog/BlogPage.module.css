@@ -45,18 +45,6 @@
   text-transform: uppercase;
 }
 
-.eyebrow {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.eyebrow > span {
-  width: 24px;
-  height: 1px;
-  background: var(--accent);
-}
-
 .hero h1 {
   max-width: 920px;
   margin: 22px 0 0;

@@ -1,6 +1,5 @@
 "use client";
 
-import { FiClock, FiLink2, FiRadio, FiRepeat } from "react-icons/fi";
 import styles from "./StorySection.module.css";
 import { useInViewOnce } from "./useInViewOnce";
 
@@ -8,22 +7,18 @@ const storySteps = [
   {
     title: "The daily loop",
     description: "We made the same useful request every day, only to start from zero each morning.",
-    Icon: FiRepeat,
   },
   {
     title: "Schedule it once",
     description: "Set the routine once. Cuppet brings the result when you need it, with no extra prompt.",
-    Icon: FiClock,
   },
   {
     title: "Keep context close",
     description: "Connected apps mean less tab-hopping and less searching for the same files.",
-    Icon: FiLink2,
   },
   {
     title: "Building in public",
     description: "It's still early. We're sharing progress as we work toward a public launch.",
-    Icon: FiRadio,
   },
 ] as const;
 
@@ -41,10 +36,7 @@ export default function StorySection() {
 
       <div className={styles.storyInner}>
         <div className={styles.storyCopy}>
-          <p className={styles.eyebrow}>
-            <span aria-hidden="true" />
-            Our story
-          </p>
+          <p className={styles.eyebrow}>Our story</p>
           <h1 id="story-heading">AI that runs in the background, not another tab you babysit.</h1>
           <p className={styles.storyLead}>
             We kept opening AI tools to ask for the same help every day. Cuppet puts that work on a
@@ -66,6 +58,11 @@ export default function StorySection() {
         </div>
 
         <div className={styles.storyVisual} aria-label="How the idea evolved">
+          <div className={styles.storyVisualHeader}>
+            <span>From repetition to routine</span>
+            <small>Four decisions</small>
+          </div>
+
           <div className={styles.dailyLoop} aria-hidden="true">
             <span>Ask again</span>
             <i />
@@ -75,16 +72,13 @@ export default function StorySection() {
           </div>
 
           <ol className={styles.storyTimeline}>
-            {storySteps.map(({ title, description, Icon }, index) => (
+            {storySteps.map(({ title, description }, index) => (
               <li className={styles.storyCard} key={title}>
-                <span className={styles.storyIcon} aria-hidden="true">
-                  <Icon />
-                </span>
-                <article>
-                  <span className={styles.stepNumber}>{String(index + 1).padStart(2, "0")}</span>
+                <span className={styles.stepNumber}>{String(index + 1).padStart(2, "0")}</span>
+                <div className={styles.storyStepCopy}>
                   <h3>{title}</h3>
                   <p>{description}</p>
-                </article>
+                </div>
               </li>
             ))}
           </ol>

@@ -35,9 +35,6 @@
 }
 
 .eyebrow {
-  display: flex;
-  gap: 10px;
-  align-items: center;
   margin: 0 0 22px;
   color: rgba(28, 26, 23, 0.56);
   font-size: 11px;
@@ -45,12 +42,6 @@
   letter-spacing: 0.13em;
   line-height: 1.4;
   text-transform: uppercase;
-}
-
-.eyebrow > span {
-  width: 24px;
-  height: 1px;
-  background: var(--accent);
 }
 
 .introGrid {
