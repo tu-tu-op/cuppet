@@ -189,17 +189,6 @@ button {
   line-height: 1.7;
 }
 
-.hero-cta {
-  position: absolute;
-  z-index: 1;
-  right: 0;
-  bottom: clamp(20px, 3vw, 32px);
-  left: 0;
-  display: flex;
-  width: fit-content;
-  margin: 0 auto;
-}
-
 .connectors-page {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -1244,8 +1233,7 @@ button {
     border-radius 720ms ease;
 }
 
-.carousel-stage.is-introing .carousel-card-shade,
-.carousel-stage.is-introing .carousel-caption {
+.carousel-stage.is-introing .carousel-title {
   opacity: 0 !important;
   transition: none !important;
 }
@@ -1267,6 +1255,11 @@ button {
   cursor: grabbing;
 }
 
+/* Snappier seats while dragging so multi-step live updates keep up. */
+.carousel-stage.is-dragging .carousel-card {
+  transition-duration: 280ms;
+}
+
 .carousel-card.active {
   border-color: rgba(109, 148, 128, 0.35);
   box-shadow:
@@ -1284,42 +1277,32 @@ button {
   transition: none !important;
 }
 
-.carousel-card-shade {
+/* Title lives under the mid card; fades out on change then back in. */
+.carousel-title {
   position: absolute;
-  inset: auto 0 0;
-  height: 48%;
-  background: linear-gradient(180deg, transparent, rgba(5, 8, 7, 0.9));
-  opacity: 0;
-  transition: opacity 260ms ease;
+  left: 50%;
+  bottom: clamp(36px, 7vw, 56px);
+  z-index: 50;
+  margin: 0;
+  max-width: min(90%, 360px);
+  color: var(--ink);
+  font-family: var(--nav-font);
+  font-size: clamp(13px, 1.5vw, 18px);
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  letter-spacing: -0.01em;
   pointer-events: none;
+  opacity: 0;
+  transform: translateX(-50%) translateY(8px);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
 }
 
-.carousel-caption {
-  position: absolute;
-  inset: auto 12px 12px;
-  display: grid;
-  gap: 3px;
-  color: #fff;
-  text-align: left;
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 260ms ease 160ms, transform 260ms ease 160ms;
-  pointer-events: none;
-}
-
-.carousel-card.active .carousel-caption {
+.carousel-title.is-visible {
   opacity: 1;
-  transform: none;
-}
-
-.carousel-caption strong {
-  font-size: clamp(12px, 1.4vw, 18px);
-  line-height: 1.05;
-}
-
-.carousel-caption span {
-  color: rgba(255, 255, 255, 0.75);
-  font-size: clamp(10px, 1vw, 12px);
+  transform: translateX(-50%) translateY(0);
 }
 
 .carousel-lightbox {
@@ -1548,8 +1531,9 @@ button {
     border-radius: 9px;
   }
 
-  .carousel-caption {
-    inset: auto 8px 8px;
+  .carousel-title {
+    bottom: clamp(28px, 6vw, 44px);
+    font-size: clamp(12px, 3.4vw, 15px);
   }
 }
 

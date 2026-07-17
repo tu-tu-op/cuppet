@@ -23,6 +23,10 @@ const N = slides.length;
 const VIS = Math.max(1, Math.floor((N - 1) / 2) - 2);
 const INTRO_MS = 980;
 const INTRO_STAGGER = 72;
+// Drag: enough px per step so flings aren't too fast; cap at 3 cards per gesture.
+const DRAG_PX_PER_STEP = 120;
+const DRAG_MAX_STEPS = 3;
+const TITLE_FADE_MS = 180;
 
 function wrapOffset(i: number, active: number) {
   const raw = i - active;
@@ -85,15 +89,30 @@ export default function ImageCarousel() {
   const [intro, setIntro] = useState<"pending" | "dot" | "fan" | "done">("pending");
   const [dragging, setDragging] = useState(false);
   const [openSlide, setOpenSlide] = useState<number | null>(null);
+  const [title, setTitle] = useState(slides[0][0]);
+  const [titleShown, setTitleShown] = useState(false);
   const stageRef = useRef<HTMLDivElement>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const swipeX = useRef<number | null>(null);
+  const swipeSteps = useRef(0); // steps already applied this drag gesture
   const suppressClick = useRef(false);
   const prevOff = useRef(slides.map((_, i) => wrapOffset(i, 0)));
   const introStarted = useRef(false);
 
   const move = (d: number) => setActive((a) => (a + d + N) % N);
   const introing = intro !== "done";
+
+  // Map drag delta → step count (capped); apply only the delta since last update so reverse works.
+  const applyDrag = (clientX: number) => {
+    if (swipeX.current === null) return;
+    const d = clientX - swipeX.current;
+    const dir = d > 0 ? -1 : d < 0 ? 1 : 0;
+    const target = dir * Math.min(DRAG_MAX_STEPS, Math.floor(Math.abs(d) / DRAG_PX_PER_STEP));
+    const delta = target - swipeSteps.current;
+    if (delta === 0) return;
+    swipeSteps.current = target;
+    move(delta);
+  };
 
   useEffect(() => {
     const el = stageRef.current;
@@ -148,6 +167,20 @@ export default function ImageCarousel() {
     return () => cancelAnimationFrame(f);
   }, [active, introing]);
 
+  // Title sits below the mid card: fade out, swap label, fade in.
+  useEffect(() => {
+    if (introing) {
+      setTitleShown(false);
+      return;
+    }
+    setTitleShown(false);
+    const t = window.setTimeout(() => {
+      setTitle(slides[active][0]);
+      setTitleShown(true);
+    }, TITLE_FADE_MS);
+    return () => clearTimeout(t);
+  }, [active, introing]);
+
   const [label] = slides[active];
   const openedSlide = openSlide === null ? null : slides[openSlide];
 
@@ -181,32 +214,36 @@ export default function ImageCarousel() {
       onPointerDown={(e) => {
         if (introing || openSlide !== null || !e.isPrimary || e.button !== 0) return;
         swipeX.current = e.clientX;
+        swipeSteps.current = 0;
         suppressClick.current = false;
         setDragging(true);
       }}
       onPointerMove={(e) => {
-        if (swipeX.current !== null && Math.abs(e.clientX - swipeX.current) > 8) {
+        if (swipeX.current === null) return;
+        if (Math.abs(e.clientX - swipeX.current) > 8) {
           suppressClick.current = true;
           if (!e.currentTarget.hasPointerCapture(e.pointerId)) {
             e.currentTarget.setPointerCapture(e.pointerId);
           }
         }
+        applyDrag(e.clientX);
       }}
       onPointerUp={(e) => {
         if (introing || swipeX.current === null) return;
-        const d = e.clientX - swipeX.current;
+        applyDrag(e.clientX); // catch last threshold if move skipped it
         swipeX.current = null;
+        swipeSteps.current = 0;
         setDragging(false);
         if (e.currentTarget.hasPointerCapture(e.pointerId)) {
           e.currentTarget.releasePointerCapture(e.pointerId);
         }
-        if (Math.abs(d) > 42) move(d > 0 ? -1 : 1);
         window.setTimeout(() => {
           suppressClick.current = false;
         }, 0);
       }}
       onPointerCancel={() => {
         swipeX.current = null;
+        swipeSteps.current = 0;
         suppressClick.current = false;
         setDragging(false);
       }}
@@ -263,14 +300,16 @@ export default function ImageCarousel() {
                 decoding="async"
                 draggable={false}
               />
-              <span className="carousel-card-shade" aria-hidden="true" />
-              <span className="carousel-caption">
-                <strong>{slideLabel}</strong>
-              </span>
             </button>
           );
         })}
       </div>
+      <p
+        className={["carousel-title", titleShown && "is-visible"].filter(Boolean).join(" ")}
+        aria-hidden="true"
+      >
+        {title}
+      </p>
       <p className="sr-only" aria-live="polite" aria-atomic="true">
         Slide {active + 1} of {N}: {label}
       </p>
