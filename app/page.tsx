@@ -1,5 +1,6 @@
 import ConnectorsSection from "./ConnectorsSection";
 import DemoSection from "./DemoSection";
+import ExecutionComparisonSection from "./ExecutionComparisonSection";
 import FAQSection from "./FAQSection";
 import Footer from "./Footer";
 import HowItWorksSection from "./HowItWorksSection";
@@ -27,6 +28,7 @@ export default function Home() {
       <ConnectorsSection />
       <DemoSection />
       <HowItWorksSection />
+      <ExecutionComparisonSection />
       <FAQSection />
       <Footer />
     </main>
