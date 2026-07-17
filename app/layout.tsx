@@ -11,7 +11,7 @@ const comfortaa = Comfortaa({
 
 export const metadata: Metadata = {
   title: "Cuppet",
-  description: "Cuppet — join the waitlist",
+  description: "Scheduled agents that run across the apps you already use.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

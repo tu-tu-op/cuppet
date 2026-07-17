@@ -21,41 +21,29 @@ const chapters = [
   {
     id: "opening",
     title: "Opening the app",
-    caption: "See today’s priorities, scheduled agents, and finished work at a glance.",
-    previewTitle: "Your day, already in motion",
-    previewDescription: "Cuppet opens to a clear view of what is ready, running, and coming next.",
+    caption: "See priorities, scheduled agents, and finished work at a glance.",
   },
   {
     id: "connectors",
     title: "Connecting your tools",
-    caption: "Approve Gmail, Calendar, and Notion once to keep useful context in reach.",
-    previewTitle: "Context, connected securely",
-    previewDescription: "Choose the tools an agent can use and review every permission before approval.",
+    caption: "Approve Gmail, Calendar, and Notion once—only the access you allow.",
   },
   {
     id: "command",
     title: "Sending a command",
-    caption: "Describe the outcome in plain language, then set the timing and guardrails.",
-    previewTitle: "Ask for the outcome you need",
-    previewDescription: "Turn a simple request into a scheduled workflow without building it step by step.",
+    caption: "Describe the outcome, set the schedule, and set guardrails.",
   },
   {
     id: "working",
     title: "Watching the agent work",
-    caption: "Follow each action as Cuppet gathers context, decides, and completes the routine.",
-    previewTitle: "Every step stays visible",
-    previewDescription: "Live progress makes it easy to see what the agent checked and changed.",
+    caption: "Follow each step as it gathers context and finishes the routine.",
   },
   {
     id: "result",
     title: "Reviewing the result",
-    caption: "Inspect the finished brief, its sources, and the actions taken on your behalf.",
-    previewTitle: "Finished work, ready to review",
-    previewDescription: "Get a concise result with the supporting context and a complete activity record.",
+    caption: "Open the finished brief, sources, and the actions taken.",
   },
 ] as const;
-
-type Chapter = (typeof chapters)[number];
 
 function AppHeader() {
   return (
@@ -138,7 +126,7 @@ function ConnectorsPreview() {
       </div>
       <div className="demo-approval-panel">
         <div><FiShield aria-hidden="true" /><strong>Permission review</strong></div>
-        <p>Read selected messages and create calendar events. Cuppet will always ask before sending.</p>
+        <p>Read selected messages and create calendar events. Cuppet asks before sending.</p>
         <button type="button" tabIndex={-1}>Access approved</button>
       </div>
     </div>
@@ -199,7 +187,7 @@ function WorkingPreview() {
           </div>
         ))}
       </div>
-      <div className="demo-live-note"><span /> Live activity is saved to your agent history.</div>
+      <div className="demo-live-note"><span /> Activity is saved to agent history.</div>
     </div>
   );
 }
@@ -211,7 +199,7 @@ function ResultPreview() {
       <div className="demo-mobile-heading">
         <span>Completed at 8:47 AM</span>
         <h4>Your client brief is ready</h4>
-        <p>Everything you need before the first meeting, gathered in two minutes.</p>
+        <p>What you need before the first meeting, pulled together in two minutes.</p>
       </div>
       <div className="demo-result-panel">
         <div className="demo-panel-heading">
@@ -239,35 +227,31 @@ const previews = {
   result: ResultPreview,
 } as const;
 
-function PreviewScreen({ chapter }: { chapter: Chapter }) {
-  const Screen = previews[chapter.id];
-  return <Screen />;
-}
-
 export default function DemoSection() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const activeChapter = chapters[activeIndex];
+  const chapter = chapters[activeIndex];
+  const Screen = previews[chapter.id];
 
   return (
     <section className="demo-page" id="demo" aria-labelledby="demo-heading">
       <div className="demo-content">
         <span className="section-cross" aria-hidden="true" />
-        <h2 id="demo-heading">See It in Action</h2>
-        <p>Follow a complete workflow, from the first request to finished work ready for review.</p>
+        <h2 id="demo-heading">See a full run</h2>
+        <p>From opening the app to reviewing finished work.</p>
         <div className="demo-index" aria-label="Demo chapters">
-          {chapters.map((chapter, index) => (
+          {chapters.map((item, index) => (
             <button
               className={`demo-index-card${index === activeIndex ? " is-active" : ""}`}
               type="button"
-              key={chapter.id}
+              key={item.id}
               aria-pressed={index === activeIndex}
               aria-controls="interactive-demo-screen"
               onClick={() => setActiveIndex(index)}
             >
               <span className="demo-index-number">{String(index + 1).padStart(2, "0")}</span>
               <span>
-                <strong>{chapter.title}</strong>
-                <small>{chapter.caption}</small>
+                <strong>{item.title}</strong>
+                <small>{item.caption}</small>
               </span>
             </button>
           ))}
@@ -275,16 +259,16 @@ export default function DemoSection() {
       </div>
 
       <div className="demo-preview">
-        <div className="demo-preview-copy" key={`copy-${activeChapter.id}`} aria-live="polite">
-          <span>Interactive Preview</span>
-          <h3>{activeChapter.previewTitle}</h3>
-          <p>{activeChapter.previewDescription}</p>
+        <div className="demo-preview-copy" key={`copy-${chapter.id}`} aria-live="polite">
+          <span>Interactive preview</span>
+          <h3>{chapter.title}</h3>
+          <p>{chapter.caption}</p>
         </div>
         <div className="demo-phone-float">
           <div className="demo-phone" aria-hidden="true">
-            <div className="demo-phone-screen" id="interactive-demo-screen" key={activeChapter.id}>
+            <div className="demo-phone-screen" id="interactive-demo-screen" key={chapter.id}>
               <AppHeader />
-              <PreviewScreen chapter={activeChapter} />
+              <Screen />
               <div className="demo-home-indicator" />
             </div>
           </div>

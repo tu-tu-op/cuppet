@@ -39,36 +39,36 @@ import LogoLoop from "./LogoLoop";
 type Connector = { name: string; color: string; Icon: IconType; description: string };
 
 const connectorCatalog: Connector[] = [
-  { name: "Gmail", color: "#ea4335", Icon: SiGmail, description: "Gives your agents the context inside email threads so they can summarize conversations, draft replies, and trigger the next step without losing important details." },
-  { name: "Google Calendar", color: "#4285f4", Icon: SiGooglecalendar, description: "Lets agents understand your availability, schedule or adjust events, and prepare timely reminders around the commitments already on your calendar." },
-  { name: "Google Drive", color: "#0f9d58", Icon: SiGoogledrive, description: "Helps agents find files, retrieve useful context, organize documents, and save completed work where your team already expects to find it." },
-  { name: "Google Docs", color: "#4285f4", Icon: SiGoogledocs, description: "Lets agents draft, revise, and reference documents so written work stays current without constant manual editing." },
-  { name: "Google Sheets", color: "#0f9d58", Icon: SiGooglesheets, description: "Connects agents to live spreadsheets so they can update rows, pull metrics, and keep operational data accurate." },
-  { name: "Notion", color: "#1c1a17", Icon: SiNotion, description: "Connects agents to your workspace so they can reference pages, update databases, capture decisions, and keep shared knowledge current." },
-  { name: "Slack", color: "#4a154b", Icon: FaSlack, description: "Lets agents read channels, post updates, and surface decisions so team communication stays in sync with automated work." },
-  { name: "Discord", color: "#5865f2", Icon: SiDiscord, description: "Keeps community and team spaces connected so agents can announce progress, gather feedback, and route important messages." },
-  { name: "Microsoft Teams", color: "#6264a7", Icon: BiLogoMicrosoftTeams, description: "Gives agents access to chats and meetings so enterprise collaboration stays coordinated with scheduled routines." },
-  { name: "Zoom", color: "#2d8cff", Icon: SiZoom, description: "Helps agents prepare meeting context, capture follow-ups, and keep video sessions tied to your daily workflows." },
-  { name: "GitHub", color: "#1c1a17", Icon: SiGithub, description: "Allows agents to follow repositories, issues, pull requests, and code changes so development work stays summarized, routed, and moving forward." },
-  { name: "GitLab", color: "#fc6d26", Icon: SiGitlab, description: "Connects agents to merge requests and pipelines so engineering delivery stays visible and routine checks stay automated." },
-  { name: "Linear", color: "#5e6ad2", Icon: SiLinear, description: "Keeps agents aware of project priorities so they can triage issues, update statuses, and coordinate routine product work across your team." },
-  { name: "Jira", color: "#0052cc", Icon: SiJira, description: "Lets agents track tickets, update fields, and surface blockers so delivery systems stay aligned with real progress." },
-  { name: "Confluence", color: "#172b4d", Icon: SiConfluence, description: "Gives agents access to docs and runbooks so institutional knowledge can be found, summarized, and kept up to date." },
-  { name: "Asana", color: "#f06a6a", Icon: SiAsana, description: "Gives agents visibility into tasks and projects so they can update assignments, surface blockers, and keep recurring work on schedule." },
-  { name: "Trello", color: "#0052cc", Icon: SiTrello, description: "Lets agents move cards, update boards, and keep lightweight project pipelines flowing without manual board babysitting." },
-  { name: "ClickUp", color: "#7b68ee", Icon: SiClickup, description: "Connects agents to tasks and docs so multi-team workspaces stay organized and recurring actions stay automated." },
-  { name: "Todoist", color: "#e44332", Icon: SiTodoist, description: "Helps agents capture personal and team to-dos so commitments are scheduled, prioritized, and closed on time." },
-  { name: "Dropbox", color: "#0061ff", Icon: SiDropbox, description: "Connects agents to shared files and folders so they can locate source material, organize deliverables, and keep stored work up to date." },
-  { name: "Box", color: "#0061d5", Icon: SiBox, description: "Lets agents work with enterprise content so files stay searchable, organized, and ready for the next step." },
-  { name: "Figma", color: "#f24e1e", Icon: SiFigma, description: "Gives agents design context so handoffs, comments, and asset updates stay connected to product and marketing work." },
-  { name: "Airtable", color: "#18bfff", Icon: SiAirtable, description: "Connects agents to structured bases so records, views, and automations stay in sync with everyday operations." },
-  { name: "HubSpot", color: "#ff7a59", Icon: SiHubspot, description: "Lets agents work with CRM contacts and pipelines so outreach, follow-ups, and customer context stay current." },
-  { name: "Salesforce", color: "#00a1e0", Icon: FaSalesforce, description: "Gives agents CRM visibility so opportunities, accounts, and next steps stay accurate across the sales cycle." },
-  { name: "Stripe", color: "#635bff", Icon: SiStripe, description: "Connects agents to payments and billing events so revenue ops routines can react to charges, invoices, and customer activity." },
-  { name: "Shopify", color: "#96bf48", Icon: SiShopify, description: "Lets agents monitor store activity so orders, inventory signals, and merchant routines stay coordinated." },
-  { name: "Intercom", color: "#1f8ded", Icon: SiIntercom, description: "Helps agents support customer conversations so common questions and follow-ups can be handled with full context." },
-  { name: "Zendesk", color: "#03363d", Icon: SiZendesk, description: "Connects agents to support tickets so issues can be triaged, summarized, and routed without losing customer history." },
-  { name: "LinkedIn", color: "#0a66c2", Icon: FaLinkedin, description: "Lets agents assist with professional outreach and updates so networking routines stay intentional and timely." },
+  { name: "Gmail", color: "#ea4335", Icon: SiGmail, description: "Read threads, draft replies, and kick off the next step from email." },
+  { name: "Google Calendar", color: "#4285f4", Icon: SiGooglecalendar, description: "See availability, adjust events, and time work around what's on the calendar." },
+  { name: "Google Drive", color: "#0f9d58", Icon: SiGoogledrive, description: "Find files, pull context, and save finished work where the team expects it." },
+  { name: "Google Docs", color: "#4285f4", Icon: SiGoogledocs, description: "Draft and update docs so written work stays current without manual rewrites." },
+  { name: "Google Sheets", color: "#0f9d58", Icon: SiGooglesheets, description: "Update rows, pull metrics, and keep operational sheets accurate." },
+  { name: "Notion", color: "#1c1a17", Icon: SiNotion, description: "Reference pages, update databases, and keep shared notes current." },
+  { name: "Slack", color: "#4a154b", Icon: FaSlack, description: "Read channels, post updates, and keep chat in sync with automated work." },
+  { name: "Discord", color: "#5865f2", Icon: SiDiscord, description: "Post progress, gather feedback, and route important messages." },
+  { name: "Microsoft Teams", color: "#6264a7", Icon: BiLogoMicrosoftTeams, description: "Tie chats and meetings into scheduled routines at work." },
+  { name: "Zoom", color: "#2d8cff", Icon: SiZoom, description: "Prep meeting context and capture follow-ups after calls." },
+  { name: "GitHub", color: "#1c1a17", Icon: SiGithub, description: "Follow issues, PRs, and repo changes without manual check-ins." },
+  { name: "GitLab", color: "#fc6d26", Icon: SiGitlab, description: "Track merge requests and pipelines as part of routine delivery checks." },
+  { name: "Linear", color: "#5e6ad2", Icon: SiLinear, description: "Triage issues, update status, and keep product work moving." },
+  { name: "Jira", color: "#0052cc", Icon: SiJira, description: "Track tickets, update fields, and surface blockers." },
+  { name: "Confluence", color: "#172b4d", Icon: SiConfluence, description: "Find runbooks and docs, summarize them, and keep them updated." },
+  { name: "Asana", color: "#f06a6a", Icon: SiAsana, description: "Update tasks, flag blockers, and keep recurring projects on track." },
+  { name: "Trello", color: "#0052cc", Icon: SiTrello, description: "Move cards and keep light project boards current." },
+  { name: "ClickUp", color: "#7b68ee", Icon: SiClickup, description: "Coordinate tasks and docs across multi-team workspaces." },
+  { name: "Todoist", color: "#e44332", Icon: SiTodoist, description: "Capture to-dos, prioritize them, and close them on time." },
+  { name: "Dropbox", color: "#0061ff", Icon: SiDropbox, description: "Locate shared files and keep deliverables organized." },
+  { name: "Box", color: "#0061d5", Icon: SiBox, description: "Work with enterprise files that need to stay searchable and ready." },
+  { name: "Figma", color: "#f24e1e", Icon: SiFigma, description: "Pull design context into product and marketing handoffs." },
+  { name: "Airtable", color: "#18bfff", Icon: SiAirtable, description: "Keep bases, views, and records in sync with day-to-day ops." },
+  { name: "HubSpot", color: "#ff7a59", Icon: SiHubspot, description: "Work with contacts and pipelines so follow-ups stay current." },
+  { name: "Salesforce", color: "#00a1e0", Icon: FaSalesforce, description: "Keep opportunities and next steps accurate across the sales cycle." },
+  { name: "Stripe", color: "#635bff", Icon: SiStripe, description: "React to charges, invoices, and billing events in revenue routines." },
+  { name: "Shopify", color: "#96bf48", Icon: SiShopify, description: "Watch orders and inventory signals for store routines." },
+  { name: "Intercom", color: "#1f8ded", Icon: SiIntercom, description: "Handle common support questions with full conversation context." },
+  { name: "Zendesk", color: "#03363d", Icon: SiZendesk, description: "Triage tickets, summarize issues, and route with history intact." },
+  { name: "LinkedIn", color: "#0a66c2", Icon: FaLinkedin, description: "Help with outreach and updates without the daily grind." },
 ];
 
 const connectorLogos = connectorCatalog.map(({ Icon, name, color }) => ({
@@ -154,8 +154,8 @@ export default function ConnectorsSection() {
         <span className="section-cross" aria-hidden="true" />
         <h2 id="connectors-heading">Connectors</h2>
         <p>
-          Your agents gain the context they need to understand your digital world, make informed
-          decisions, and take action—without constant switching between apps.
+          Plug in the apps you already use. Agents get the context they need without you jumping
+          between tabs.
         </p>
         <div className="connectors-loop" id="connector-loop">
           <LogoLoop
@@ -190,7 +190,7 @@ export default function ConnectorsSection() {
           onClick={() => setBrowseOpen(true)}
         >
           <FiGrid aria-hidden="true" />
-          Explore More
+          Explore more
         </button>
 
         {browseOpen && (
@@ -218,7 +218,7 @@ export default function ConnectorsSection() {
               <div className="connector-browse-header">
                 <div>
                   <p className="connector-browse-kicker">All connectors</p>
-                  <h3 id="connector-browse-title">Explore integrations</h3>
+                  <h3 id="connector-browse-title">Browse integrations</h3>
                 </div>
                 <button
                   className="connector-detail-close"

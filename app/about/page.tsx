@@ -5,7 +5,7 @@ import StorySection from "../StorySection";
 
 export const metadata: Metadata = {
   title: "About Us — Cuppet",
-  description: "Why we are building Cuppet and how the product is taking shape in public.",
+  description: "Why we are building Cuppet and what we are working on now.",
 };
 
 export default function AboutPage() {

@@ -19,11 +19,9 @@ const slides = [
 ] as const;
 
 const N = slides.length;
-// Hide outermost seat on each side so left/right tails don't crowd the stage.
 const VIS = Math.max(1, Math.floor((N - 1) / 2) - 2);
 const INTRO_MS = 980;
 const INTRO_STAGGER = 72;
-// Drag: enough px per step so flings aren't too fast; cap at 3 cards per gesture.
 const DRAG_PX_PER_STEP = 120;
 const DRAG_MAX_STEPS = 3;
 const TITLE_FADE_MS = 180;
@@ -42,7 +40,6 @@ function orbit(offset: number, w: number, h: number, isActive: boolean) {
   const t = seam ? Math.sign(offset || 1) * 1.08 : VIS === 0 ? 0 : seat / VIS;
   const abs = Math.min(Math.abs(t), 1);
   const maxAngle = (Math.PI / 2) * 0.7;
-  // Mild spread + small gap so mid and first left/right aren't stuck together.
   const angle = Math.sign(t) * Math.pow(abs || 0, 0.85) * maxAngle;
   const base = (w / Math.max(N - 2, 1)) * 1.15;
   const widthPx = Math.max(32, base * (isActive ? 1.55 : 0.48));
@@ -51,7 +48,6 @@ function orbit(offset: number, w: number, h: number, isActive: boolean) {
   const y = h * (-0.06 + abs * abs * 0.14);
   const tip = 10 + abs * 9;
   const yaw = -angle * (180 / Math.PI);
-  // Visible seats stay solid; only seam (hidden last cards) go transparent.
   let opacity = 0.88 + (1 - abs) * 0.12;
   if (seam) opacity = 0;
   const gap = abs > 0 ? w * 0.015 : 0;
@@ -89,12 +85,12 @@ export default function ImageCarousel() {
   const [intro, setIntro] = useState<"pending" | "dot" | "fan" | "done">("pending");
   const [dragging, setDragging] = useState(false);
   const [openSlide, setOpenSlide] = useState<number | null>(null);
-  const [title, setTitle] = useState(slides[0][0]);
+  const [title, setTitle] = useState<string>(slides[0][0]);
   const [titleShown, setTitleShown] = useState(false);
   const stageRef = useRef<HTMLDivElement>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const swipeX = useRef<number | null>(null);
-  const swipeSteps = useRef(0); // steps already applied this drag gesture
+  const swipeSteps = useRef(0);
   const suppressClick = useRef(false);
   const prevOff = useRef(slides.map((_, i) => wrapOffset(i, 0)));
   const introStarted = useRef(false);
@@ -102,7 +98,6 @@ export default function ImageCarousel() {
   const move = (d: number) => setActive((a) => (a + d + N) % N);
   const introing = intro !== "done";
 
-  // Map drag delta → step count (capped); apply only the delta since last update so reverse works.
   const applyDrag = (clientX: number) => {
     if (swipeX.current === null) return;
     const d = clientX - swipeX.current;
@@ -167,7 +162,6 @@ export default function ImageCarousel() {
     return () => cancelAnimationFrame(f);
   }, [active, introing]);
 
-  // Title sits below the mid card: fade out, swap label, fade in.
   useEffect(() => {
     if (introing) {
       setTitleShown(false);
@@ -230,7 +224,7 @@ export default function ImageCarousel() {
       }}
       onPointerUp={(e) => {
         if (introing || swipeX.current === null) return;
-        applyDrag(e.clientX); // catch last threshold if move skipped it
+        applyDrag(e.clientX);
         swipeX.current = null;
         swipeSteps.current = 0;
         setDragging(false);
@@ -259,7 +253,6 @@ export default function ImageCarousel() {
           const cls = [
             "carousel-card",
             isActive && "active",
-            // Grab cursor only on mid + first left/right (not whole stage).
             Math.abs(offset) <= 1 && !style.seam && "is-drag-zone",
             (style.seam || isWrap) && "is-seam",
             isWrap && "no-transition",

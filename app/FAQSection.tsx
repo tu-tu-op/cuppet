@@ -2,29 +2,29 @@ import styles from "./FAQSection.module.css";
 
 const faqs = [
   {
-    question: "What does Cuppet actually do?",
+    question: "What does Cuppet do?",
     answer:
-      "Cuppet helps with useful work that comes back every day. You can connect the apps you already use, describe a routine in plain language, and have an agent handle it on the schedule you choose.",
+      "You connect apps you already use, describe a routine in plain language, and an agent runs it on the schedule you set.",
   },
   {
-    question: "How is this different from a normal AI chatbot?",
+    question: "How is this different from a chatbot?",
     answer:
-      "A chatbot waits for you to open it and ask. Cuppet is designed for work that should keep moving without another prompt, while still giving you a clear view of what the agent did and where the result came from.",
+      "A chatbot waits for you to open it. Cuppet is for work that should run without another prompt, with a clear log of what happened.",
   },
   {
-    question: "What are scheduled agents?",
+    question: "What is a scheduled agent?",
     answer:
-      "A scheduled agent is a saved task with a time, a set of connected tools, and boundaries you approve. It might prepare a morning brief on weekdays, check a recurring deadline, or organize new information before you need it.",
+      "A saved task with a time, connected tools, and limits you approve—like a weekday morning brief or a weekly digest.",
   },
   {
     question: "Which apps can I connect?",
     answer:
-      "We are building connectors for everyday tools such as Gmail, Google Calendar, Drive, Docs, Notion, Slack, and common work platforms. Connector availability will grow as the product develops, and each connection will be optional.",
+      "We are building connectors for tools like Gmail, Calendar, Drive, Docs, Notion, and Slack. More will land over time; each connection is optional.",
   },
   {
     question: "Is my data private?",
     answer:
-      "Connections are permission-based. You choose which apps an agent can use and review the access it needs before approving it. We are building these controls into the product from the start, not adding them later.",
+      "Access is permission-based. You pick which apps an agent can use and review that access before approving it.",
   },
 ] as const;
 
@@ -34,8 +34,8 @@ export default function FAQSection() {
       <div className={styles.faqIntro}>
         <span className="section-cross" aria-hidden="true" />
         <p>FAQ</p>
-        <h2 id="faq-heading">Common Questions</h2>
-        <span>Clear answers about Cuppet, connected apps, privacy, and launch plans.</span>
+        <h2 id="faq-heading">Common questions</h2>
+        <span>Short answers on how Cuppet works, connectors, and privacy.</span>
       </div>
 
       <div className={styles.faqList}>

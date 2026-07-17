@@ -4,7 +4,7 @@ import WaitlistForm from "./WaitlistForm";
 
 export const metadata: Metadata = {
   title: "Join Waitlist — Cuppet",
-  description: "Join the Cuppet waitlist — tell us how you’ll use it, then leave your name and email.",
+  description: "Join the Cuppet waitlist. Tell us how you’ll use it, then leave your name and email.",
 };
 
 export default function WaitlistPage() {

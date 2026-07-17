@@ -1,59 +1,34 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { FiClock, FiLink2, FiRadio, FiRepeat } from "react-icons/fi";
 import styles from "./StorySection.module.css";
+import { useInViewOnce } from "./useInViewOnce";
 
 const storySteps = [
   {
     title: "The daily loop",
-    description:
-      "The same useful questions keep coming back. Starting from zero each time never felt like the right answer.",
+    description: "Same useful ask, every day. Starting from zero each morning got old fast.",
     Icon: FiRepeat,
   },
   {
-    title: "A quieter rhythm",
-    description:
-      "Schedule the routine once. Cuppet brings the result when it matters, without another round of prompting.",
+    title: "Schedule it once",
+    description: "Set the routine. Cuppet brings the result when you need it—no extra prompt.",
     Icon: FiClock,
   },
   {
-    title: "Context stays close",
-    description:
-      "Connected apps keep everyday work in one flow, with fewer tabs and less searching between tools.",
+    title: "Keep context close",
+    description: "Connected apps mean less tab-hopping and less searching for the same files.",
     Icon: FiLink2,
   },
   {
-    title: "Built in the open",
-    description:
-      "Cuppet is still taking shape. We are sharing the process, learning in public, and preparing for launch.",
+    title: "Building in public",
+    description: "Still early. We're sharing progress and aiming for a public launch.",
     Icon: FiRadio,
   },
 ] as const;
 
 export default function StorySection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section || !window.IntersectionObserver) {
-      setIsVisible(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        setIsVisible(true);
-        observer.disconnect();
-      },
-      { rootMargin: "0px 0px -96px" },
-    );
-
-    observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
+  const [sectionRef, isVisible] = useInViewOnce("0px 0px -96px");
 
   return (
     <section
@@ -68,25 +43,24 @@ export default function StorySection() {
         <div className={styles.storyCopy}>
           <p className={styles.eyebrow}>
             <span aria-hidden="true" />
-            Our Story
+            Our story
           </p>
-          <h1 id="story-heading">AI should fit into life, not interrupt it.</h1>
+          <h1 id="story-heading">AI that runs in the background, not another tab you babysit.</h1>
           <p className={styles.storyLead}>
-            Cuppet began with a familiar pattern: open AI, ask for the same kind of help, close it,
-            then do it all again tomorrow. We wanted that useful work to keep moving on its own, at
-            the right time, without asking people to repeat themselves.
+            We kept opening AI tools to ask for the same help every day. Cuppet is for that work:
+            scheduled, hooked into your apps, and done without starting over each morning.
           </p>
 
           <blockquote className={styles.philosophy}>
-            <p>Technology should quietly help, then get out of the way.</p>
-            <footer>Why we are building Cuppet</footer>
+            <p>Help with the boring repeats. Stay out of the way otherwise.</p>
+            <footer>Why we&apos;re building Cuppet</footer>
           </blockquote>
 
           <div className={styles.currentStatus} aria-label="Current project status">
             <span className={styles.statusPulse} aria-hidden="true" />
             <span>
-              <strong>Actively in development</strong>
-              <small>Preparing for Google Play verification and launch</small>
+              <strong>In development</strong>
+              <small>Preparing for Google Play review and launch</small>
             </span>
           </div>
         </div>

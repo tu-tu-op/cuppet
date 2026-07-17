@@ -18,7 +18,7 @@ export default function SiteNav({ current, root }: Props) {
           About Us
         </a>
         <a href="/blog" {...(current === "blog" ? { "aria-current": "page" as const } : {})}>
-          BLOG
+          Blog
         </a>
       </nav>
       <a

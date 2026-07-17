@@ -1,75 +1,49 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { FiCheck } from "react-icons/fi";
 import styles from "./ExecutionComparisonSection.module.css";
+import { useInViewOnce } from "./useInViewOnce";
 
 const comparisons = [
   {
     need: "Start the day with what matters.",
-    typical: "Gather the latest updates and ask for another summary every morning.",
-    outcome:
-      "Runs before your day starts, checks the apps you approved, and delivers a fresh brief.",
+    typical: "Pull updates yourself and ask for another summary every morning.",
+    outcome: "Runs before you sit down, checks the apps you approved, and leaves a brief ready.",
     status: "Scheduled",
     result: "Morning brief ready at 8:45 AM",
   },
   {
     need: "Walk into meetings prepared.",
-    typical: "Paste the newest notes and rebuild the context when the meeting gets close.",
-    outcome:
-      "Reads the calendar, relevant mail, and saved notes in time to prepare the meeting context.",
+    typical: "Paste the latest notes and rebuild context when the meeting is close.",
+    outcome: "Reads calendar, mail, and notes in time to prep the meeting pack.",
     status: "On time",
     result: "Meeting prep completed",
   },
   {
     need: "Keep a topic in view.",
-    typical: "Repeat the search and prompt whenever you want to know what changed.",
-    outcome:
-      "Checks saved sources each week, organizes the changes, and sends a concise digest.",
+    typical: "Search and re-prompt whenever you want to know what changed.",
+    outcome: "Checks saved sources each week and sends a short digest.",
     status: "Updated",
     result: "Weekly digest delivered",
   },
   {
     need: "Stay ahead of follow-ups.",
-    typical: "Get a draft, then remember when to revisit it and what happened next.",
-    outcome:
-      "Tracks the due moment, prepares the follow-up with current context, and asks before sending.",
+    typical: "Get a draft, then try to remember when to send it and what changed.",
+    outcome: "Tracks the due time, updates the draft, and asks before sending.",
     status: "Review",
     result: "Ready for your approval",
   },
   {
     need: "Keep recurring work moving.",
-    typical: "The answer stops when the conversation closes, so the next cycle starts from zero.",
-    outcome:
-      "A saved routine runs again, records each step, and returns when the result is ready.",
+    typical: "The thread ends, so next week you start from zero again.",
+    outcome: "A saved routine runs again, logs each step, and returns when it's done.",
     status: "Repeatable",
     result: "Routine completed with history",
   },
 ] as const;
 
 export default function ExecutionComparisonSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section || !window.IntersectionObserver) {
-      setIsVisible(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        setIsVisible(true);
-        observer.disconnect();
-      },
-      { rootMargin: "0px 0px -80px" },
-    );
-
-    observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
+  const [sectionRef, isVisible] = useInViewOnce();
 
   return (
     <section
@@ -81,13 +55,13 @@ export default function ExecutionComparisonSection() {
         <header className={styles.intro}>
           <p className={styles.eyebrow}>
             <span aria-hidden="true" />
-            Beyond the chat window
+            Chat vs Cuppet
           </p>
           <div className={styles.introGrid}>
-            <h2 id="comparison-heading">The difference is what happens next.</h2>
+            <h2 id="comparison-heading">Chat ends when you close the tab. Cuppet keeps going.</h2>
             <p>
-              A conversation can point you in the right direction. Cuppet keeps the routine moving
-              with connected context, a schedule, and clear control over every action.
+              A one-off conversation answers a question. Cuppet runs the same job on a schedule,
+              with your apps connected and your approval on sensitive steps.
             </p>
           </div>
         </header>

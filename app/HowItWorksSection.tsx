@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import {
   FiCalendar,
   FiCheck,
@@ -14,6 +13,7 @@ import {
   FiShield,
 } from "react-icons/fi";
 import styles from "./HowItWorksSection.module.css";
+import { useInViewOnce } from "./useInViewOnce";
 
 function WindowBar({ label }: { label: string }) {
   return (
@@ -155,70 +155,43 @@ const features = [
   {
     label: "Timing",
     title: "Schedule once",
-    description:
-      "Choose what should happen and when. One setup keeps recurring work moving on your cadence.",
+    description: "Pick what should run and when. Recurring work keeps the same cadence.",
     Scene: ScheduleScene,
   },
   {
     label: "Context",
     title: "Connect your tools",
-    description:
-      "Bring mail, calendars, notes, and tasks into one useful flow with access you approve.",
+    description: "Mail, calendars, notes, and tasks—only with access you approve.",
     Scene: ConnectScene,
   },
   {
     label: "Direction",
-    title: "Talk to an agent",
-    description:
-      "Describe the outcome in everyday language. Cuppet turns it into a clear, reusable routine.",
+    title: "Tell the agent what you need",
+    description: "Plain language is enough. Cuppet turns it into a reusable routine.",
     Scene: CommandScene,
   },
   {
     label: "Progress",
-    title: "Let it run on time",
-    description:
-      "Agents start on schedule, gather the right context, and leave a visible trail as they work.",
+    title: "It runs on time",
+    description: "Agents start when scheduled and leave a clear trail of each step.",
     Scene: RunScene,
   },
   {
     label: "Permission",
-    title: "Stay in control",
-    description:
-      "Review sensitive actions before they happen and see exactly what changed after they finish.",
+    title: "You stay in control",
+    description: "Approve sensitive actions before they go out. See what changed after.",
     Scene: ApprovalScene,
   },
   {
     label: "Routines",
-    title: "Reuse workflows",
-    description:
-      "Save the routines that work, run them again, or adapt them for a different week.",
+    title: "Reuse what works",
+    description: "Save a routine, run it again, or tweak it for next week.",
     Scene: LibraryScene,
   },
 ] as const;
 
 export default function HowItWorksSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section || !window.IntersectionObserver) {
-      setIsVisible(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        setIsVisible(true);
-        observer.disconnect();
-      },
-      { rootMargin: "0px 0px -80px" },
-    );
-
-    observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
+  const [sectionRef, isVisible] = useInViewOnce();
 
   return (
     <section
@@ -229,10 +202,9 @@ export default function HowItWorksSection() {
       <div className={styles.inner}>
         <header className={styles.intro}>
           <p className={styles.eyebrow}><span aria-hidden="true" /> How it works</p>
-          <h2 id="how-it-works-heading">A quieter way to keep things moving.</h2>
+          <h2 id="how-it-works-heading">From schedule to finished work.</h2>
           <p className={styles.lead}>
-            Connect the apps you already use, schedule an agent once, and let everyday routines
-            keep their rhythm with clear permissions at every step.
+            Connect your apps, set a time, and approve anything sensitive. Cuppet handles the rest.
           </p>
         </header>
 

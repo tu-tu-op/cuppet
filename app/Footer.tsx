@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { FiActivity, FiShield, FiTrendingUp } from "react-icons/fi";
+import { useInViewOnce } from "./useInViewOnce";
 
 const linkGroups = [
   {
@@ -9,7 +9,6 @@ const linkGroups = [
     links: [
       ["Home", "/"],
       ["Connectors", "/#connectors"],
-      ["Workflows", "/#demo"],
       ["Demo", "/#demo"],
     ],
   },
@@ -33,18 +32,18 @@ const linkGroups = [
 
 const statusCards = [
   {
-    title: "Active Development",
-    description: "We're continuously shipping improvements and expanding the platform.",
+    title: "In development",
+    description: "Shipping features and cleaning up rough edges.",
     Icon: FiActivity,
   },
   {
-    title: "Privacy First",
-    description: "Every integration is permission-based and designed with user privacy in mind.",
+    title: "Permission-based",
+    description: "You choose which apps each agent can use.",
     Icon: FiShield,
   },
   {
-    title: "Launch Journey",
-    description: "Currently preparing for Google Play verification and public release.",
+    title: "Launch prep",
+    description: "Working toward Google Play review and public release.",
     Icon: FiTrendingUp,
   },
 ] as const;
@@ -56,26 +55,7 @@ const bottomLinks = [
 ] as const;
 
 export default function Footer() {
-  const footerRef = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const footer = footerRef.current;
-    if (!footer || !window.IntersectionObserver) {
-      setIsVisible(true);
-      return;
-    }
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        setIsVisible(true);
-        observer.disconnect();
-      },
-      { rootMargin: "0px 0px -64px" },
-    );
-    observer.observe(footer);
-    return () => observer.disconnect();
-  }, []);
+  const [footerRef, isVisible] = useInViewOnce("0px 0px -64px");
 
   return (
     <footer ref={footerRef} className={`site-footer${isVisible ? " is-visible" : ""}`}>
@@ -84,10 +64,7 @@ export default function Footer() {
           <a className="footer-logo" href="/" aria-label="Cuppet home">
             Cuppet
           </a>
-          <p>
-            Your personal AI workspace where scheduled agents automate everyday tasks across your
-            connected digital life.
-          </p>
+          <p>Agents that run on a schedule across the apps you connect.</p>
         </div>
 
         {linkGroups.map((group) => (

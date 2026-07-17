@@ -55,7 +55,7 @@ export default function WaitlistForm() {
         <fieldset className="waitlist-use">
           <legend className="waitlist-use-legend">How will you use Cuppet?</legend>
           <p className="waitlist-use-help" id="waitlist-use-help">
-            Pick the option that fits best — helps us shape early access.
+            Pick what fits best. It helps us prioritize early access.
           </p>
           <div className="waitlist-use-options" role="radiogroup" aria-describedby="waitlist-use-help">
             {USE_TYPES.map((opt) => (

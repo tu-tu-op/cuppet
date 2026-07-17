@@ -17,8 +17,8 @@ export default function Home() {
         </div>
         <div className="brand-intro-copy">
           <p>
-            Schedule intelligent agents, connect your favorite apps, and let AI handle the routines
-            that keep your life moving—so work gets done before you even think about it.
+            Connect the apps you use, schedule an agent once, and get the result when it matters—without
+            opening another chat every morning.
           </p>
         </div>
       </section>
