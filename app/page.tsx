@@ -28,8 +28,8 @@ export default function Home() {
         </a>
       </section>
       <ConnectorsSection />
-      <HowItWorksSection />
       <DemoSection />
+      <HowItWorksSection />
       <FAQSection />
       <Footer />
     </main>
