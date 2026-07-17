@@ -1,15 +1,11 @@
 "use client";
 
 import {
-  FiActivity,
   FiArrowDown,
   FiArrowUpRight,
-  FiBell,
-  FiCalendar,
   FiCheck,
   FiClock,
   FiLink2,
-  FiRepeat,
 } from "react-icons/fi";
 import { useInViewOnce } from "../useInViewOnce";
 import styles from "./BlogPage.module.css";
@@ -33,7 +29,6 @@ const articles = [
     date: "2026-07-11",
     displayDate: "July 11, 2026",
     readTime: "6 min read",
-    Icon: FiLink2,
   },
   {
     slug: "everyday-tasks-ai-agents",
@@ -44,7 +39,6 @@ const articles = [
     date: "2026-07-07",
     displayDate: "July 7, 2026",
     readTime: "7 min read",
-    Icon: FiRepeat,
   },
   {
     slug: "ai-agents-run-on-schedule",
@@ -55,7 +49,6 @@ const articles = [
     date: "2026-07-02",
     displayDate: "July 2, 2026",
     readTime: "5 min read",
-    Icon: FiClock,
   },
   {
     slug: "personal-ai-workflow-busy-days",
@@ -66,7 +59,6 @@ const articles = [
     date: "2026-06-26",
     displayDate: "June 26, 2026",
     readTime: "8 min read",
-    Icon: FiCalendar,
   },
   {
     slug: "reminders-into-action",
@@ -77,7 +69,6 @@ const articles = [
     date: "2026-06-19",
     displayDate: "June 19, 2026",
     readTime: "6 min read",
-    Icon: FiBell,
   },
   {
     slug: "product-update-shipped-this-week",
@@ -88,7 +79,6 @@ const articles = [
     date: "2026-06-13",
     displayDate: "June 13, 2026",
     readTime: "4 min read",
-    Icon: FiActivity,
   },
 ] as const;
 
@@ -202,11 +192,10 @@ export default function BlogIndex() {
         </nav>
 
         <div className={styles.articleGrid}>
-          {articles.map(({ slug, category, title, excerpt, date, displayDate, readTime, Icon }, index) => (
+          {articles.map(({ slug, category, title, excerpt, date, displayDate, readTime }, index) => (
             <article className={styles.card} id={slug} key={slug}>
               <div className={styles.cardVisual} aria-hidden="true">
                 <span>{String(index + 1).padStart(2, "0")}</span>
-                <i><Icon /></i>
               </div>
               <div className={styles.cardBody}>
                 <div className={styles.articleMeta}>

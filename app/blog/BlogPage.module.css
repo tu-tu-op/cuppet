@@ -426,9 +426,8 @@
 
 .cardVisual {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  min-height: 132px;
+  align-items: center;
+  min-height: 96px;
   padding: 20px;
   background:
     radial-gradient(circle at 86% 18%, rgba(109, 148, 128, 0.18), transparent 34%),
@@ -437,30 +436,10 @@
 }
 
 .cardVisual > span {
-  color: rgba(84, 117, 100, 0.72);
-  font-size: 10px;
+  color: rgba(84, 117, 100, 0.56);
+  font-size: 28px;
   font-weight: 700;
-  letter-spacing: 0.1em;
-}
-
-.cardVisual > i {
-  display: grid;
-  place-items: center;
-  width: 48px;
-  height: 48px;
-  color: var(--accent-deep);
-  background: rgba(255, 255, 255, 0.52);
-  border: 1px solid rgba(84, 117, 100, 0.16);
-  border-radius: 11px;
-  font-size: 20px;
-  box-shadow: 0 10px 24px rgba(84, 117, 100, 0.08);
-  transition: color 180ms ease, background 180ms ease, transform 220ms ease;
-}
-
-.card:hover .cardVisual > i {
-  color: #fff;
-  background: var(--accent);
-  transform: rotate(-4deg) scale(1.04);
+  letter-spacing: -0.04em;
 }
 
 .cardBody {
@@ -730,7 +709,6 @@
   .topics a:hover,
   .topics a:focus-visible,
   .card:hover,
-  .card:hover .cardVisual > i,
   .relatedGrid > a:hover {
     transform: none;
   }
