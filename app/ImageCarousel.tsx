@@ -38,19 +38,19 @@ function orbit(offset: number, w: number, h: number, isActive: boolean) {
   const t = seam ? Math.sign(offset || 1) * 1.08 : VIS === 0 ? 0 : seat / VIS;
   const abs = Math.min(Math.abs(t), 1);
   const maxAngle = (Math.PI / 2) * 0.7;
-  // Softer power + extra gap so mid card isn't glued to first left/right.
-  const angle = Math.sign(t) * Math.pow(abs || 0, 0.75) * maxAngle;
+  // Mild spread + small gap so mid and first left/right aren't stuck together.
+  const angle = Math.sign(t) * Math.pow(abs || 0, 0.85) * maxAngle;
   const base = (w / Math.max(N - 2, 1)) * 1.15;
   const widthPx = Math.max(32, base * (isActive ? 1.55 : 0.48));
-  const rx = w * 0.48;
+  const rx = w * 0.44;
   const rz = Math.min(w, h) * 0.34;
   const y = h * (-0.06 + abs * abs * 0.14);
   const tip = 10 + abs * 9;
   const yaw = -angle * (180 / Math.PI);
-  let opacity = 0.58 + (1 - abs) * 0.42;
-  if (Math.abs(offset) === VIS) opacity *= 0.7;
+  // Visible seats stay solid; only seam (hidden last cards) go transparent.
+  let opacity = 0.88 + (1 - abs) * 0.12;
   if (seam) opacity = 0;
-  const gap = abs > 0 ? w * 0.04 : 0;
+  const gap = abs > 0 ? w * 0.015 : 0;
   const x = Math.sin(angle) * rx + Math.sign(t || 0) * gap;
   const z = Math.cos(angle) * rz - rz;
   return {
