@@ -2,38 +2,32 @@
 
 import { FormEvent, useState } from "react";
 
-type Step = "use" | "contact" | "done";
-
 const USE_TYPES = [
   { value: "personal", label: "Personal life", hint: "Home, habits, daily routines" },
   { value: "work", label: "Work", hint: "Solo productivity and focus" },
   { value: "team", label: "Team / company", hint: "Shared ops and workflows" },
   { value: "exploring", label: "Just exploring", hint: "Not sure yet? That’s fine" },
+  { value: "other", label: "Something else", hint: "Describe it in your own words" },
 ] as const;
 
 export default function WaitlistForm() {
-  const [step, setStep] = useState<Step>("use");
+  const [submitted, setSubmitted] = useState(false);
   const [useType, setUseType] = useState("");
   const [name, setName] = useState("");
 
-  function onUseContinue(e: FormEvent<HTMLFormElement>) {
+  function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!useType) return;
-    setStep("contact");
-  }
-
-  function onContactSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    // Storage wiring comes later — collect use type, name, email only for now
+    // Storage wiring comes later — collect use type, custom purpose, name, and email only for now
     const data = new FormData(e.currentTarget);
+    const customPurpose = String(data.get("customPurpose") || "").trim();
     const fullName = String(data.get("name") || "").trim();
     const email = String(data.get("email") || "").trim();
-    if (!fullName || !email || !useType) return;
+    if (!fullName || !email || !useType || (useType === "other" && !customPurpose)) return;
     setName(fullName);
-    setStep("done");
+    setSubmitted(true);
   }
 
-  if (step === "done") {
+  if (submitted) {
     return (
       <div className="waitlist-success" role="status" aria-live="polite">
         <p className="waitlist-success-kicker">You&apos;re on the list</p>
@@ -46,12 +40,9 @@ export default function WaitlistForm() {
     );
   }
 
-  if (step === "use") {
-    return (
-      <form className="waitlist-form" onSubmit={onUseContinue}>
-        <p className="waitlist-step" aria-hidden="true">
-          Step 1 of 2
-        </p>
+  return (
+    <form className="waitlist-form" onSubmit={onSubmit}>
+      <div className="waitlist-form-section waitlist-purpose">
         <fieldset className="waitlist-use">
           <legend className="waitlist-use-legend">How will you use Cuppet?</legend>
           <p className="waitlist-use-help" id="waitlist-use-help">
@@ -77,51 +68,57 @@ export default function WaitlistForm() {
             ))}
           </div>
         </fieldset>
+        {useType === "other" && (
+          <div className="waitlist-field">
+            <label htmlFor="waitlist-purpose">How do you plan to use Cuppet?</label>
+            <input
+              id="waitlist-purpose"
+              name="customPurpose"
+              type="text"
+              placeholder="Describe what you’d like Cuppet to handle"
+              required
+              maxLength={160}
+            />
+          </div>
+        )}
+      </div>
+      <section
+        className="waitlist-form-section waitlist-contact"
+        aria-labelledby="waitlist-contact-heading"
+      >
+        <h2 className="waitlist-form-heading" id="waitlist-contact-heading">
+          Name and email
+        </h2>
+        <div className="waitlist-field">
+          <label htmlFor="waitlist-name">Name</label>
+          <input
+            id="waitlist-name"
+            name="name"
+            type="text"
+            autoComplete="name"
+            placeholder="Your name"
+            required
+            maxLength={80}
+          />
+        </div>
+        <div className="waitlist-field">
+          <label htmlFor="waitlist-email">Email</label>
+          <input
+            id="waitlist-email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            inputMode="email"
+            placeholder="you@example.com"
+            required
+            maxLength={120}
+          />
+        </div>
         <button className="nav-cta waitlist-submit" type="submit" disabled={!useType}>
-          Continue
+          Join the waitlist
         </button>
-      </form>
-    );
-  }
-
-  return (
-    <form className="waitlist-form" onSubmit={onContactSubmit}>
-      <p className="waitlist-step" aria-hidden="true">
-        Step 2 of 2
-      </p>
-      <button className="waitlist-back-step" type="button" onClick={() => setStep("use")}>
-        ← Change use type
-      </button>
-      <div className="waitlist-field">
-        <label htmlFor="waitlist-name">Name</label>
-        <input
-          id="waitlist-name"
-          name="name"
-          type="text"
-          autoComplete="name"
-          placeholder="Your name"
-          required
-          maxLength={80}
-          autoFocus
-        />
-      </div>
-      <div className="waitlist-field">
-        <label htmlFor="waitlist-email">Email</label>
-        <input
-          id="waitlist-email"
-          name="email"
-          type="email"
-          autoComplete="email"
-          inputMode="email"
-          placeholder="you@example.com"
-          required
-          maxLength={120}
-        />
-      </div>
-      <button className="nav-cta waitlist-submit" type="submit">
-        Join the waitlist
-      </button>
-      <p className="waitlist-note">No spam. Just an invite when it&apos;s your turn.</p>
+        <p className="waitlist-note">No spam. Just an invite when it&apos;s your turn.</p>
+      </section>
     </form>
   );
 }

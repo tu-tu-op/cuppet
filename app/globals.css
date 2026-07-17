@@ -1549,7 +1549,7 @@ button {
 
 .waitlist-card {
   width: 100%;
-  max-width: 440px;
+  max-width: 920px;
   padding: clamp(28px, 4vw, 40px);
   background: rgba(255, 255, 255, 0.72);
   border: 1px solid rgba(28, 26, 23, 0.08);
@@ -1608,7 +1608,31 @@ button {
 
 .waitlist-form {
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+}
+
+.waitlist-form-section {
+  display: grid;
   gap: 16px;
+  min-width: 0;
+}
+
+.waitlist-purpose {
+  padding-right: clamp(28px, 5vw, 56px);
+}
+
+.waitlist-contact {
+  padding-left: clamp(28px, 5vw, 56px);
+  border-left: 1px solid rgba(28, 26, 23, 0.1);
+}
+
+.waitlist-form-heading {
+  margin: 0;
+  color: rgba(28, 26, 23, 0.82);
+  font-family: var(--nav-font);
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .waitlist-step {
@@ -1784,6 +1808,9 @@ button {
 }
 
 .waitlist-success {
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
   display: grid;
   gap: 10px;
   text-align: center;
@@ -1824,6 +1851,22 @@ button {
   .waitlist-card {
     padding: 24px 20px;
     border-radius: 16px;
+  }
+
+  .waitlist-form {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .waitlist-purpose {
+    padding-right: 0;
+  }
+
+  .waitlist-contact {
+    padding-top: 24px;
+    padding-left: 0;
+    border-top: 1px solid rgba(28, 26, 23, 0.1);
+    border-left: 0;
   }
 
   .waitlist-card h1 {
