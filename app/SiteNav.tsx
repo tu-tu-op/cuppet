@@ -23,17 +23,17 @@ export default function SiteNav({ current }: Props) {
         >
           Product
         </a>
-        <a href="/about" {...(current === "about" ? { "aria-current": "page" as const } : {})}>
+        <a href="/about" aria-current={current === "about" ? "page" : undefined}>
           About Us
         </a>
-        <a href="/blog" {...(current === "blog" ? { "aria-current": "page" as const } : {})}>
+        <a href="/blog" aria-current={current === "blog" ? "page" : undefined}>
           Blog
         </a>
       </nav>
       <a
         className="nav-cta"
         href="/waitlist"
-        {...(current === "waitlist" ? { "aria-current": "page" as const } : {})}
+        aria-current={current === "waitlist" ? "page" : undefined}
       >
         Join the waitlist
       </a>

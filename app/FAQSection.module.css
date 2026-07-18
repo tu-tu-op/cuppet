@@ -109,21 +109,15 @@
   border-radius: 8px;
   font-size: 18px;
   font-weight: 500;
-}
-
-.indicator i {
-  grid-area: 1 / 1;
-  font-style: normal;
   line-height: 1;
 }
 
-.minus,
-.faqItem[open] .plus {
-  display: none;
+.indicator::before {
+  content: "+";
 }
 
-.faqItem[open] .minus {
-  display: block;
+.faqItem[open] .indicator::before {
+  content: "−";
 }
 
 .faqItem > p {

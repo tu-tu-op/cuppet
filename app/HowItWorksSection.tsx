@@ -135,6 +135,12 @@ function ApprovalScene() {
   );
 }
 
+const libraryItems = [
+  [FiCalendar, "Morning plan", "Weekdays"],
+  [FiMail, "Inbox reset", "Every evening"],
+  [FiFileText, "Weekly review", "Fridays"],
+] as const;
+
 function LibraryScene() {
   return (
     <div className={styles.libraryPanel}>
@@ -143,9 +149,14 @@ function LibraryScene() {
         <small>3 workflows</small>
       </div>
       <div className={styles.workflowStack}>
-        <div><span><FiCalendar /></span><strong>Morning plan</strong><small>Weekdays</small><i><FiPlay /></i></div>
-        <div><span><FiMail /></span><strong>Inbox reset</strong><small>Every evening</small><i><FiPlay /></i></div>
-        <div><span><FiFileText /></span><strong>Weekly review</strong><small>Fridays</small><i><FiPlay /></i></div>
+        {libraryItems.map(([Icon, title, meta]) => (
+          <div key={title}>
+            <span><Icon /></span>
+            <strong>{title}</strong>
+            <small>{meta}</small>
+            <i><FiPlay /></i>
+          </div>
+        ))}
       </div>
     </div>
   );

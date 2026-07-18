@@ -74,9 +74,7 @@ export default function ExecutionComparisonSection() {
             <li className={styles.row} key={need}>
               <div className={styles.needCell}>
                 <span className={styles.cellLabel}>What you need</span>
-                <div className={styles.needMeta}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                </div>
+                <span className={styles.needMeta}>{String(index + 1).padStart(2, "0")}</span>
                 <h3>{need}</h3>
               </div>
 

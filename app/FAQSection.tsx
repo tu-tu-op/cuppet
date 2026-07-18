@@ -44,10 +44,7 @@ export default function FAQSection() {
             <summary>
               <span className={styles.questionNumber}>{String(index + 1).padStart(2, "0")}</span>
               <span>{question}</span>
-              <span className={styles.indicator} aria-hidden="true">
-                <i className={styles.plus}>+</i>
-                <i className={styles.minus}>−</i>
-              </span>
+              <span className={styles.indicator} aria-hidden="true" />
             </summary>
             <p>{answer}</p>
           </details>

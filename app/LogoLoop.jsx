@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import "./LogoLoop.css";
 
-// ponytail: horizontal node marquee only — no vertical/fade/image/href API
+// ponytail: horizontal node marquee only
 const SMOOTH_TAU = 0.25;
 const MIN_COPIES = 2;
 const COPY_HEADROOM = 2;
@@ -55,8 +55,6 @@ export default function LogoLoop({
     const track = trackRef.current;
     if (!track) return;
 
-    const targetVelocity = Math.abs(speed); // left
-
     if (seqWidth > 0) {
       offsetRef.current = ((offsetRef.current % seqWidth) + seqWidth) % seqWidth;
       track.style.transform = `translate3d(${-offsetRef.current}px, 0, 0)`;
@@ -66,12 +64,11 @@ export default function LogoLoop({
       if (lastTs.current === null) lastTs.current = timestamp;
       const dt = Math.max(0, timestamp - lastTs.current) / 1000;
       lastTs.current = timestamp;
-      const target = isHovered ? hoverSpeed : targetVelocity;
+      const target = isHovered ? hoverSpeed : Math.abs(speed);
       velocityRef.current += (target - velocityRef.current) * (1 - Math.exp(-dt / SMOOTH_TAU));
 
       if (seqWidth > 0) {
-        let next = offsetRef.current + velocityRef.current * dt;
-        next = ((next % seqWidth) + seqWidth) % seqWidth;
+        const next = ((offsetRef.current + velocityRef.current * dt) % seqWidth + seqWidth) % seqWidth;
         offsetRef.current = next;
         track.style.transform = `translate3d(${-next}px, 0, 0)`;
       }
@@ -86,17 +83,15 @@ export default function LogoLoop({
     };
   }, [speed, seqWidth, isHovered, hoverSpeed]);
 
-  const style = {
-    width: "100%",
-    "--logoloop-gap": `${gap}px`,
-    "--logoloop-logoHeight": `${logoHeight}px`,
-  };
-
   return (
     <div
       ref={containerRef}
       className={`logoloop${scaleOnHover ? " logoloop--scale-hover" : ""}`}
-      style={style}
+      style={{
+        width: "100%",
+        "--logoloop-gap": `${gap}px`,
+        "--logoloop-logoHeight": `${logoHeight}px`,
+      }}
       role="region"
       aria-label={ariaLabel}
     >
@@ -115,10 +110,8 @@ export default function LogoLoop({
             ref={copyIndex === 0 ? seqRef : undefined}
           >
             {logos.map((item, i) => (
-              <li className="logoloop__item" key={`${copyIndex}-${i}`} role="listitem">
-                <span className="logoloop__node" aria-hidden={!!item.href && !item.ariaLabel}>
-                  {item.node}
-                </span>
+              <li className="logoloop__item" key={`${copyIndex}-${i}`}>
+                <span className="logoloop__node">{item.node}</span>
               </li>
             ))}
           </ul>

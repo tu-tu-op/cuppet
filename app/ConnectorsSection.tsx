@@ -77,8 +77,6 @@ const connectorLogos = connectorCatalog.map(({ Icon, name, color }) => ({
       <Icon aria-hidden="true" focusable="false" />
     </span>
   ),
-  title: name,
-  ariaLabel: name,
 }));
 
 function ConnectorCard({
@@ -90,7 +88,6 @@ function ConnectorCard({
   onOpen: (c: Connector, e: MouseEvent<HTMLButtonElement>) => void;
   tabIndex?: number;
 }) {
-  const { Icon } = connector;
   return (
     <button
       className="connector-card"
@@ -100,7 +97,7 @@ function ConnectorCard({
       onClick={(e) => onOpen(connector, e)}
     >
       <span className="connector-card-icon" style={{ color: connector.color }}>
-        <Icon aria-hidden="true" focusable="false" />
+        <connector.Icon aria-hidden="true" focusable="false" />
       </span>
       <span className="connector-card-name">{connector.name}</span>
     </button>

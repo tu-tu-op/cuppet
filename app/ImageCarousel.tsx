@@ -29,9 +29,7 @@ const TITLE_FADE_MS = 180;
 function wrapOffset(i: number, active: number) {
   const raw = i - active;
   const mid = N / 2;
-  if (raw > mid) return raw - N;
-  if (raw < -mid) return raw + N;
-  return raw;
+  return raw > mid ? raw - N : raw < -mid ? raw + N : raw;
 }
 
 function orbit(offset: number, w: number, h: number, isActive: boolean) {
@@ -39,31 +37,19 @@ function orbit(offset: number, w: number, h: number, isActive: boolean) {
   const seat = Math.max(-VIS, Math.min(VIS, offset));
   const t = seam ? Math.sign(offset || 1) * 1.08 : VIS === 0 ? 0 : seat / VIS;
   const abs = Math.min(Math.abs(t), 1);
-  const maxAngle = (Math.PI / 2) * 0.7;
-  const angle = Math.sign(t) * Math.pow(abs || 0, 0.85) * maxAngle;
-  const base = (w / Math.max(N - 2, 1)) * 1.15;
-  const widthPx = Math.max(32, base * (isActive ? 1.55 : 0.48));
-  const rx = w * 0.44;
+  const angle = Math.sign(t) * Math.pow(abs || 0, 0.85) * (Math.PI / 2) * 0.7;
+  const widthPx = Math.max(32, (w / Math.max(N - 2, 1)) * 1.15 * (isActive ? 1.55 : 0.48));
   const rz = Math.min(w, h) * 0.34;
-  const y = h * (-0.06 + abs * abs * 0.14);
-  const tip = 10 + abs * 9;
-  const yaw = -angle * (180 / Math.PI);
-  let opacity = 0.88 + (1 - abs) * 0.12;
-  if (seam) opacity = 0;
   const gap = abs > 0 ? w * 0.015 : 0;
-  const x = Math.sin(angle) * rx + Math.sign(t || 0) * gap;
+  const x = Math.sin(angle) * w * 0.44 + Math.sign(t || 0) * gap;
+  const y = h * (-0.06 + abs * abs * 0.14);
   const z = Math.cos(angle) * rz - rz;
   return {
     width: `${widthPx.toFixed(2)}px`,
-    opacity,
+    opacity: seam ? 0 : 0.88 + (1 - abs) * 0.12,
     zIndex: seam ? 0 : Math.round(40 + (1 - abs) * 40 + (isActive ? 20 : 0)),
     seam,
-    transform: [
-      `translate3d(-50%, -50%, 0)`,
-      ` translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, ${z.toFixed(1)}px)`,
-      ` rotateY(${yaw.toFixed(2)}deg)`,
-      ` rotateX(${tip.toFixed(2)}deg)`,
-    ].join(""),
+    transform: `translate3d(-50%, -50%, 0) translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, ${z.toFixed(1)}px) rotateY(${(-angle * 180 / Math.PI).toFixed(2)}deg) rotateX(${(10 + abs * 9).toFixed(2)}deg)`,
   };
 }
 
@@ -97,6 +83,7 @@ export default function ImageCarousel() {
 
   const move = (d: number) => setActive((a) => (a + d + N) % N);
   const introing = intro !== "done";
+  const cx = (...parts: Array<string | false | null | undefined>) => parts.filter(Boolean).join(" ");
 
   const applyDrag = (clientX: number) => {
     if (swipeX.current === null) return;
@@ -107,6 +94,13 @@ export default function ImageCarousel() {
     if (delta === 0) return;
     swipeSteps.current = target;
     move(delta);
+  };
+
+  const clearDrag = (el?: HTMLElement, pointerId?: number) => {
+    swipeX.current = null;
+    swipeSteps.current = 0;
+    setDragging(false);
+    if (el && pointerId != null && el.hasPointerCapture(pointerId)) el.releasePointerCapture(pointerId);
   };
 
   useEffect(() => {
@@ -180,9 +174,7 @@ export default function ImageCarousel() {
 
   return (
     <div
-      className={["carousel-stage", introing && "is-introing", dragging && "is-dragging"]
-        .filter(Boolean)
-        .join(" ")}
+      className={cx("carousel-stage", introing && "is-introing", dragging && "is-dragging")}
       ref={stageRef}
       role="region"
       aria-roledescription="carousel"
@@ -216,30 +208,21 @@ export default function ImageCarousel() {
         if (swipeX.current === null) return;
         if (Math.abs(e.clientX - swipeX.current) > 8) {
           suppressClick.current = true;
-          if (!e.currentTarget.hasPointerCapture(e.pointerId)) {
-            e.currentTarget.setPointerCapture(e.pointerId);
-          }
+          if (!e.currentTarget.hasPointerCapture(e.pointerId)) e.currentTarget.setPointerCapture(e.pointerId);
         }
         applyDrag(e.clientX);
       }}
       onPointerUp={(e) => {
         if (introing || swipeX.current === null) return;
         applyDrag(e.clientX);
-        swipeX.current = null;
-        swipeSteps.current = 0;
-        setDragging(false);
-        if (e.currentTarget.hasPointerCapture(e.pointerId)) {
-          e.currentTarget.releasePointerCapture(e.pointerId);
-        }
+        clearDrag(e.currentTarget, e.pointerId);
         window.setTimeout(() => {
           suppressClick.current = false;
         }, 0);
       }}
       onPointerCancel={() => {
-        swipeX.current = null;
-        swipeSteps.current = 0;
         suppressClick.current = false;
-        setDragging(false);
+        clearDrag();
       }}
     >
       <div className="carousel-cards" aria-live="off">
@@ -248,25 +231,22 @@ export default function ImageCarousel() {
           const isActive = offset === 0;
           const seat = orbit(offset, size.w, size.h, isActive);
           const isWrap = wrapping.has(i);
-          const style = intro === "dot" || intro === "pending" ? introDot(seat.seam) : seat;
-          const delay = intro === "fan" ? `${Math.abs(offset) * INTRO_STAGGER}ms` : "0ms";
-          const cls = [
-            "carousel-card",
-            isActive && "active",
-            Math.abs(offset) <= 1 && !style.seam && "is-drag-zone",
-            (style.seam || isWrap) && "is-seam",
-            isWrap && "no-transition",
-            intro === "dot" || intro === "pending" ? "is-intro-dot" : "",
-            intro === "fan" ? "is-intro-fan" : "",
-          ]
-            .filter(Boolean)
-            .join(" ");
+          const dotted = intro === "dot" || intro === "pending";
+          const style = dotted ? introDot(seat.seam) : seat;
 
           return (
             <button
               key={slideLabel}
               type="button"
-              className={cls}
+              className={cx(
+                "carousel-card",
+                isActive && "active",
+                Math.abs(offset) <= 1 && !style.seam && "is-drag-zone",
+                (style.seam || isWrap) && "is-seam",
+                isWrap && "no-transition",
+                dotted && "is-intro-dot",
+                intro === "fan" && "is-intro-fan",
+              )}
               aria-label={isActive ? `Open ${slideLabel} screenshot` : `Show ${slideLabel} screenshot`}
               aria-haspopup={isActive ? "dialog" : undefined}
               aria-hidden={style.seam}
@@ -281,7 +261,7 @@ export default function ImageCarousel() {
                 opacity: isWrap ? 0 : style.opacity,
                 zIndex: style.zIndex,
                 transform: style.transform,
-                transitionDelay: delay,
+                transitionDelay: intro === "fan" ? `${Math.abs(offset) * INTRO_STAGGER}ms` : "0ms",
               }}
             >
               <img
@@ -297,10 +277,7 @@ export default function ImageCarousel() {
           );
         })}
       </div>
-      <p
-        className={["carousel-title", titleShown && "is-visible"].filter(Boolean).join(" ")}
-        aria-hidden="true"
-      >
+      <p className={cx("carousel-title", titleShown && "is-visible")} aria-hidden="true">
         {title}
       </p>
       <p className="sr-only" aria-live="polite" aria-atomic="true">

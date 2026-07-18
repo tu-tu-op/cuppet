@@ -2,9 +2,6 @@ import type { ReactNode } from "react";
 
 export type LogoItem = {
   node: ReactNode;
-  title?: string;
-  href?: string;
-  ariaLabel?: string;
 };
 
 export type LogoLoopProps = {

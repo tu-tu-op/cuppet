@@ -17,13 +17,8 @@ export default function WaitlistForm() {
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // Storage wiring comes later — collect use type, custom purpose, name, and email only for now
-    const data = new FormData(e.currentTarget);
-    const customPurpose = String(data.get("customPurpose") || "").trim();
-    const fullName = String(data.get("name") || "").trim();
-    const email = String(data.get("email") || "").trim();
-    if (!fullName || !email || !useType || (useType === "other" && !customPurpose)) return;
-    setName(fullName);
+    // Storage wiring comes later — browser `required` already gates empty fields.
+    setName(String(new FormData(e.currentTarget).get("name") || "").trim());
     setSubmitted(true);
   }
 

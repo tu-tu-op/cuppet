@@ -33,10 +33,6 @@
   line-height: 1;
 }
 
-.logoloop__item:last-child {
-  margin-right: var(--logoloop-gap);
-}
-
 .logoloop__node {
   display: inline-flex;
   align-items: center;

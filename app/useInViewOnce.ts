@@ -13,14 +13,11 @@ export function useInViewOnce(rootMargin = "0px 0px -80px") {
       setVisible(true);
       return;
     }
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        setVisible(true);
-        obs.disconnect();
-      },
-      { rootMargin },
-    );
+    const obs = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      setVisible(true);
+      obs.disconnect();
+    }, { rootMargin });
     obs.observe(el);
     return () => obs.disconnect();
   }, [rootMargin]);

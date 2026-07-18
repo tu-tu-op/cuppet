@@ -179,13 +179,16 @@ function WorkingPreview() {
         <p>Started at 8:45 AM</p>
       </div>
       <div className="demo-step-list">
-        {workSteps.map(([title, detail], index) => (
-          <div className={index === workSteps.length - 1 ? "is-running" : "is-done"} key={title}>
-            <span className="demo-step-status">{index === workSteps.length - 1 ? <i /> : <FiCheck aria-hidden="true" />}</span>
-            <span><strong>{title}</strong><small>{detail}</small></span>
-            {index === workSteps.length - 1 && <FiMoreHorizontal aria-hidden="true" />}
-          </div>
-        ))}
+        {workSteps.map(([title, detail], index) => {
+          const running = index === workSteps.length - 1;
+          return (
+            <div className={running ? "is-running" : "is-done"} key={title}>
+              <span className="demo-step-status">{running ? <i /> : <FiCheck aria-hidden="true" />}</span>
+              <span><strong>{title}</strong><small>{detail}</small></span>
+              {running && <FiMoreHorizontal aria-hidden="true" />}
+            </div>
+          );
+        })}
       </div>
       <div className="demo-live-note"><span /> This activity is saved in the agent history.</div>
     </div>

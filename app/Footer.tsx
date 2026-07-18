@@ -85,9 +85,7 @@ export default function Footer() {
           <div className="status-list">
             {statusCards.map(({ title, description, Icon }) => (
               <article className="status-card" key={title}>
-                <span className="status-icon" aria-hidden="true">
-                  <Icon />
-                </span>
+                <span className="status-icon" aria-hidden="true"><Icon /></span>
                 <div>
                   <h3>{title}</h3>
                   <p>{description}</p>
