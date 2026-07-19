@@ -1,4 +1,5 @@
-import Navbar from '../sections/Navbar'
+import Seo from '../components/Seo'
+import SiteLayout from '../components/SiteLayout'
 import Hero from '../sections/Hero'
 import PromptMarquee from '../sections/PromptMarquee'
 import HowItWorks from '../sections/HowItWorks'
@@ -6,12 +7,15 @@ import Features from '../sections/Features'
 import Security from '../sections/Security'
 import Examples from '../sections/Examples'
 import CTA from '../sections/CTA'
-import Footer from '../sections/Footer'
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#F5F3EE] text-foreground overflow-x-clip">
-      <Navbar />
+    <SiteLayout>
+      <Seo
+        title="Cuppet"
+        description="Create persistent agents in one sentence. Cuppet works across your connected accounts, keeps the schedule, and sends the result to your inbox."
+        path="/"
+      />
       <main>
         <Hero />
         <PromptMarquee />
@@ -21,7 +25,6 @@ export default function Home() {
         <Examples />
         <CTA />
       </main>
-      <Footer />
-    </div>
+    </SiteLayout>
   )
 }

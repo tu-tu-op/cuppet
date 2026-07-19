@@ -48,7 +48,7 @@ const SCRIPT: { delay: number; msg: Msg }[] = [
 function Ticks() {
   return (
     <span className="inline-flex items-center ml-1.5 align-middle">
-      <CheckCheck className="w-3.5 h-3.5 text-sky-400" />
+      <CheckCheck className="w-3.5 h-3.5 text-[#b7d3bd]" />
     </span>
   )
 }
@@ -60,18 +60,18 @@ function DigestCard() {
     { tag: 'Dev', title: 'Agent frameworks become the default app backend' },
   ]
   return (
-    <div className="mt-1 rounded-xl overflow-hidden border border-[#F5F3EE]/10 bg-[#F5F3EE]/5">
-      <div className="px-3 py-2 flex items-center gap-2 border-b border-[#F5F3EE]/10 bg-brand-400/10">
-        <Newspaper className="w-3.5 h-3.5 text-brand-300" />
-        <span className="text-[11px] font-semibold text-brand-200 tracking-wide uppercase">
+    <div className="mt-1 rounded-xl overflow-hidden border border-black/[0.08] bg-[#F5F3EE]">
+      <div className="px-3 py-2 flex items-center gap-2 border-b border-black/[0.08] bg-[#dde8df]">
+        <Newspaper className="w-3.5 h-3.5 text-[#2c6042]" />
+        <span className="text-[11px] font-semibold text-[#24583b] tracking-wide uppercase">
           Tech Digest · 3 stories
         </span>
       </div>
-      <div className="divide-y divide-[#F5F3EE]/5">
+      <div className="divide-y divide-black/[0.06]">
         {items.map((it) => (
           <div key={it.title} className="px-3 py-2">
-            <span className="text-[9px] font-bold text-brand-300 uppercase tracking-widest">{it.tag}</span>
-            <p className="text-[12px] leading-snug text-zinc-200 mt-0.5">{it.title}</p>
+            <span className="text-[9px] font-bold text-[#2c6042] uppercase tracking-widest">{it.tag}</span>
+            <p className="text-[12px] leading-snug text-black/70 mt-0.5">{it.title}</p>
           </div>
         ))}
       </div>
@@ -100,28 +100,39 @@ export default function PhoneMockup() {
   const visible = SCRIPT.slice(0, step).map((s) => s.msg)
 
   return (
-    <div className="relative w-full max-w-[320px] sm:max-w-[350px] select-none">
-      {/* Phone frame */}
-      <div className="relative rounded-[3rem] border border-[#F5F3EE]/15 bg-zinc-950 p-2.5 glow-ring">
-        <div className="relative rounded-[2.4rem] overflow-hidden bg-[#0b141a] h-[620px] flex flex-col">
-          {/* Notch */}
-          <div className="absolute top-2 left-1/2 -translate-x-1/2 w-24 h-5 bg-black rounded-full z-20" />
-
+    <div className="relative w-full max-w-[390px] select-none">
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-3 -top-3 z-20 h-8 w-8 border-l border-t border-[#173c2a]/45"
+      />
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-3 -top-3 z-20 h-8 w-8 border-r border-t border-[#173c2a]/45"
+      />
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-3 -left-3 z-20 h-8 w-8 border-b border-l border-[#173c2a]/45"
+      />
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-3 -right-3 z-20 h-8 w-8 border-b border-r border-[#173c2a]/45"
+      />
+      <div className="relative h-[620px] overflow-hidden bg-[#F5F3EE] flex flex-col shadow-[0_28px_70px_-42px_rgba(12,25,17,0.4)]">
           {/* Chat header */}
-          <div className="pt-9 pb-2.5 px-3 flex items-center gap-2.5 bg-[#101a20] border-b border-[#F5F3EE]/5 z-10">
-            <ChevronLeft className="w-5 h-5 text-zinc-400 -ml-1" />
+          <div className="py-3.5 px-3 flex items-center gap-2.5 bg-[#efede8] border-b border-black/[0.08] z-10">
+            <ChevronLeft className="w-5 h-5 text-black/40 -ml-1" />
             <div className="relative">
-              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand-300 to-brand-600 flex items-center justify-center">
-                <Sparkles className="w-4 h-4 text-brand-950" />
+              <div className="w-9 h-9 rounded-full bg-[#24583b] flex items-center justify-center">
+                <Sparkles className="w-4 h-4 text-[#F5F3EE]" />
               </div>
-              <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-brand-400 border-2 border-[#101a20]" />
+              <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-[#67a476] border-2 border-[#efede8]" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-[13px] font-semibold text-zinc-100 leading-tight">Tech News Agent</p>
-              <p className="text-[10.5px] text-brand-300/90 leading-tight">scheduled · daily 7:00 AM</p>
+              <p className="text-[13px] font-semibold text-[#171a17] leading-tight">Tech News Agent</p>
+              <p className="text-[10.5px] text-[#2c6042] leading-tight">scheduled · daily 7:00 AM</p>
             </div>
-            <Phone className="w-4 h-4 text-zinc-500" />
-            <MoreVertical className="w-4 h-4 text-zinc-500" />
+            <Phone className="w-4 h-4 text-black/30" />
+            <MoreVertical className="w-4 h-4 text-black/30" />
           </div>
 
           {/* Chat body */}
@@ -130,7 +141,7 @@ export default function PhoneMockup() {
             className="flex-1 overflow-y-auto px-3 py-3 space-y-2 scrollbar-none"
             style={{
               backgroundImage:
-                'radial-gradient(rgba(52,220,132,0.05) 1px, transparent 1px)',
+                'radial-gradient(rgba(23,60,42,0.07) 1px, transparent 1px)',
               backgroundSize: '18px 18px',
             }}
           >
@@ -151,41 +162,41 @@ export default function PhoneMockup() {
                   }
                 >
                   {m.kind === 'date' && (
-                    <span className="text-[10px] font-medium text-zinc-400 bg-[#182229] px-3 py-1 rounded-full border border-[#F5F3EE]/5">
+                    <span className="text-[10px] font-medium text-black/45 bg-[#e5e6e0] px-3 py-1 rounded-full border border-black/[0.06]">
                       {m.text}
                     </span>
                   )}
 
                   {m.kind === 'in' && (
-                    <div className="max-w-[82%] bg-[#1f2c33] rounded-2xl rounded-tl-sm px-3 py-2 shadow">
-                      <p className="text-[13px] leading-snug text-zinc-100">{m.text}</p>
-                      <p className="text-[9.5px] text-zinc-500 text-right mt-1">{m.time}</p>
+                    <div className="max-w-[82%] bg-[#e7e8e2] rounded-2xl rounded-tl-sm px-3 py-2">
+                      <p className="text-[13px] leading-snug text-black/70">{m.text}</p>
+                      <p className="text-[9.5px] text-black/35 text-right mt-1">{m.time}</p>
                     </div>
                   )}
 
                   {m.kind === 'digest' && (
-                    <div className="max-w-[88%] bg-[#1f2c33] rounded-2xl rounded-tl-sm px-2.5 py-2 shadow">
+                    <div className="max-w-[88%] bg-[#e7e8e2] rounded-2xl rounded-tl-sm px-2.5 py-2">
                       <DigestCard />
-                      <p className="text-[9.5px] text-zinc-500 text-right mt-1 px-1">{m.time}</p>
+                      <p className="text-[9.5px] text-black/35 text-right mt-1 px-1">{m.time}</p>
                     </div>
                   )}
 
                   {m.kind === 'out' && (
-                    <div className="max-w-[80%] bg-[#005c46] rounded-2xl rounded-tr-sm px-3 py-2 shadow">
-                      <p className="text-[13px] leading-snug text-zinc-50">
+                    <div className="max-w-[80%] bg-[#24583b] rounded-2xl rounded-tr-sm px-3 py-2">
+                      <p className="text-[13px] leading-snug text-[#F5F3EE]">
                         {m.text}
                         <Ticks />
                       </p>
-                      <p className="text-[9.5px] text-emerald-200/50 text-right mt-0.5">{m.time}</p>
+                      <p className="text-[9.5px] text-[#F5F3EE]/45 text-right mt-0.5">{m.time}</p>
                     </div>
                   )}
 
                   {m.kind === 'typing' && (
-                    <div className="bg-[#1f2c33] rounded-2xl rounded-tl-sm px-4 py-3 flex gap-1.5 items-center">
+                    <div className="bg-[#e7e8e2] rounded-2xl rounded-tl-sm px-4 py-3 flex gap-1.5 items-center">
                       {[0, 1, 2].map((d) => (
                         <span
                           key={d}
-                          className="typing-dot w-1.5 h-1.5 rounded-full bg-zinc-400"
+                          className="typing-dot w-1.5 h-1.5 rounded-full bg-black/30"
                           style={{ animationDelay: `${d * 0.18}s` }}
                         />
                       ))}
@@ -193,9 +204,9 @@ export default function PhoneMockup() {
                   )}
 
                   {m.kind === 'chip' && (
-                    <span className="flex items-center gap-2 text-[10.5px] font-medium text-brand-200 bg-brand-400/10 border border-brand-400/25 px-3.5 py-1.5 rounded-full">
+                    <span className="flex items-center gap-2 text-[10.5px] font-medium text-[#24583b] bg-[#dde8df] border border-[#2c6042]/15 px-3.5 py-1.5 rounded-full">
                       <CalendarClock className="w-3.5 h-3.5" />
-                      {m.text}: <span className="text-brand-300 font-semibold">{m.sub}</span>
+                      {m.text}: <span className="text-[#2c6042] font-semibold">{m.sub}</span>
                     </span>
                   )}
                 </motion.div>
@@ -204,17 +215,16 @@ export default function PhoneMockup() {
           </div>
 
           {/* Input bar */}
-          <div className="px-2.5 pb-4 pt-2 bg-[#0b141a] flex items-center gap-2">
-            <div className="flex-1 flex items-center gap-2 bg-[#1f2c33] rounded-full px-3.5 py-2.5">
-              <Plus className="w-4 h-4 text-zinc-500" />
-              <span className="text-[12.5px] text-zinc-500 flex-1">Message</span>
-              <Mic className="w-4 h-4 text-zinc-500" />
+          <div className="px-2.5 pb-4 pt-2 bg-[#efede8] border-t border-black/[0.06] flex items-center gap-2">
+            <div className="flex-1 flex items-center gap-2 bg-[#dedfd9] rounded-full px-3.5 py-2.5">
+              <Plus className="w-4 h-4 text-black/35" />
+              <span className="text-[12.5px] text-black/35 flex-1">Message</span>
+              <Mic className="w-4 h-4 text-black/35" />
             </div>
-            <div className="w-10 h-10 rounded-full bg-brand-500 flex items-center justify-center shadow-lg shadow-brand-500/30">
-              <Send className="w-4 h-4 text-brand-950 -ml-0.5" />
+            <div className="w-10 h-10 rounded-full bg-[#24583b] flex items-center justify-center">
+              <Send className="w-4 h-4 text-[#F5F3EE] -ml-0.5" />
             </div>
           </div>
-        </div>
       </div>
 
     </div>

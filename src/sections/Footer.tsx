@@ -1,3 +1,4 @@
+import { Link } from 'react-router'
 import { Logo } from './Navbar'
 
 export default function Footer() {
@@ -8,11 +9,12 @@ export default function Footer() {
           <Logo size="sm" />
           <p className="text-[11px] text-black/35">Work gets done. You get a message.</p>
         </div>
-        <nav className="flex items-center gap-6 text-[11px] text-black/45">
-          <a href="#how" className="hover:text-black transition-colors">How it works</a>
-          <a href="#agents" className="hover:text-black transition-colors">Agents</a>
-          <a href="#security" className="hover:text-black transition-colors">Security</a>
-          <a href="#examples" className="hover:text-black transition-colors">Examples</a>
+        <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-[11px] text-black/45">
+          <Link to="/" className="hover:text-black transition-colors">Product</Link>
+          <Link to="/about" className="hover:text-black transition-colors">About Us</Link>
+          <Link to="/blog" className="hover:text-black transition-colors">Blog</Link>
+          <Link to="/privacy" className="hover:text-black transition-colors">Privacy</Link>
+          <Link to="/terms" className="hover:text-black transition-colors">Terms</Link>
         </nav>
         <p className="text-[11px] text-black/25">© 2026 Cuppet</p>
       </div>
