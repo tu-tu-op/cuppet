@@ -11,7 +11,7 @@
     linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(243, 241, 236, 0.98));
   border-top: 1px solid rgba(109, 148, 128, 0.16);
   border-bottom: 1px solid rgba(28, 26, 23, 0.06);
-  font-family: var(--nav-font);
+  font-family: var(--font-body);
 }
 
 .ambientGlow {

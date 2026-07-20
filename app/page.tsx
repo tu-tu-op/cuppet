@@ -13,7 +13,16 @@ export default function Home() {
       <SiteNav />
       <section className="brand-intro" id="about" aria-labelledby="brand-heading">
         <div className="brand-intro-lead">
+          <p className="brand-kicker">Scheduled agents for the apps you already use</p>
           <h1 id="brand-heading">Wake up to work that&apos;s already done.</h1>
+          <div className="brand-actions">
+            <a className="nav-cta" href="/waitlist">
+              Join the waitlist
+            </a>
+            <a className="btn-secondary" href="#product">
+              See the product
+            </a>
+          </div>
         </div>
         <div className="brand-intro-copy">
           <p>

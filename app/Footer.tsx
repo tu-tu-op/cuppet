@@ -1,6 +1,5 @@
 "use client";
 
-import { FiActivity, FiShield, FiTrendingUp } from "react-icons/fi";
 import { useInViewOnce } from "./useInViewOnce";
 
 const linkGroups = [
@@ -10,48 +9,25 @@ const linkGroups = [
       ["Home", "/"],
       ["Connectors", "/#connectors"],
       ["Demo", "/#demo"],
+      ["FAQ", "/#faq"],
     ],
   },
   {
-    title: "Resources",
+    title: "Company",
     links: [
+      ["About", "/about"],
       ["Blog", "/blog"],
-      ["Changelog", "/changelog"],
-      ["FAQ", "/#faq"],
+      ["Waitlist", "/waitlist"],
     ],
   },
   {
     title: "Legal",
     links: [
-      ["Privacy Policy", "/privacy"],
-      ["Terms & Conditions", "/terms"],
+      ["Privacy", "/privacy"],
+      ["Terms", "/terms"],
       ["Contact", "/contact"],
     ],
   },
-] as const;
-
-const statusCards = [
-  {
-    title: "In development",
-    description: "Shipping features and cleaning up rough edges.",
-    Icon: FiActivity,
-  },
-  {
-    title: "Permission-based",
-    description: "You choose which apps each agent can use.",
-    Icon: FiShield,
-  },
-  {
-    title: "Launch prep",
-    description: "Working toward Google Play review and public release.",
-    Icon: FiTrendingUp,
-  },
-] as const;
-
-const bottomLinks = [
-  ["Privacy", "/privacy"],
-  ["Terms", "/terms"],
-  ["Contact", "/contact"],
 ] as const;
 
 export default function Footer() {
@@ -59,12 +35,27 @@ export default function Footer() {
 
   return (
     <footer ref={footerRef} className={`site-footer${isVisible ? " is-visible" : ""}`}>
-      <div className="footer-main">
-        <div className="footer-brand">
+      <div className="footer-statement">
+        <div className="footer-statement-copy">
           <a className="footer-logo" href="/" aria-label="Cuppet home">
             Cuppet
           </a>
-          <p>Agents that run on a schedule across the apps you connect.</p>
+          <p className="footer-tagline">
+            Agents that run on a schedule across the apps you connect — with your approval on
+            sensitive steps.
+          </p>
+        </div>
+        <a className="nav-cta footer-cta" href="/waitlist">
+          Join the waitlist
+        </a>
+      </div>
+
+      <div className="footer-main">
+        <div className="footer-brand">
+          <p className="footer-status-line">
+            <span className="footer-status-dot" aria-hidden="true" />
+            In development · Permission-based access · Preparing for public launch
+          </p>
         </div>
 
         {linkGroups.map((group) => (
@@ -79,34 +70,14 @@ export default function Footer() {
             </ul>
           </nav>
         ))}
-
-        <div className="footer-status">
-          <h2>Status</h2>
-          <div className="status-list">
-            {statusCards.map(({ title, description, Icon }) => (
-              <article className="status-card" key={title}>
-                <span className="status-icon" aria-hidden="true"><Icon /></span>
-                <div>
-                  <h3>{title}</h3>
-                  <p>{description}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-          <a className="nav-cta footer-cta" href="/waitlist">
-            Join the waitlist
-          </a>
-        </div>
       </div>
 
       <div className="footer-bottom">
         <p>© 2026 Cuppet</p>
         <nav aria-label="Footer legal links">
-          {bottomLinks.map(([label, href]) => (
-            <a href={href} key={label}>
-              {label}
-            </a>
-          ))}
+          <a href="/privacy">Privacy</a>
+          <a href="/terms">Terms</a>
+          <a href="/contact">Contact</a>
         </nav>
       </div>
     </footer>

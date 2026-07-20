@@ -8,7 +8,7 @@
   background: transparent;
   border-top: 1px solid rgba(109, 148, 128, 0.16);
   border-bottom: 1px solid rgba(28, 26, 23, 0.06);
-  font-family: var(--nav-font);
+  font-family: var(--font-body);
 }
 
 .inner {
@@ -47,22 +47,25 @@
 }
 
 .intro h2 {
-  max-width: 820px;
+  max-width: 16ch;
   margin: 0;
-  color: rgba(28, 26, 23, 0.94);
-  font-size: clamp(40px, 5vw, 68px);
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 4.5vw, 3.5rem);
   font-weight: 700;
-  letter-spacing: -0.05em;
-  line-height: 1.03;
+  font-style: normal;
+  letter-spacing: var(--tracking-display);
+  line-height: 1.06;
 }
 
 .lead {
-  max-width: 440px;
+  max-width: 36ch;
   margin: 0;
-  color: rgba(28, 26, 23, 0.64);
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.75;
+  color: var(--color-ink-soft);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.7;
 }
 
 .grid {

@@ -1,7 +1,7 @@
 .blog {
   width: 100%;
   color: var(--ink);
-  font-family: var(--nav-font);
+  font-family: var(--font-body);
 }
 
 .hero,

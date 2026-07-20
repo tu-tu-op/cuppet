@@ -1,0 +1,96 @@
+/**
+ * Cuppet design tokens
+ * Hallmark · genre: modern-minimal · theme: warm-operational (sage on paper)
+ * Portable brand contract — imported via app/globals.css
+ */
+:root {
+  /* Surfaces */
+  --color-page: #fbfaf8;
+  --color-canvas: #f3f1ec;
+  --color-surface: #ffffff;
+  --color-surface-soft: rgba(255, 255, 255, 0.72);
+  --color-surface-tint: rgba(222, 229, 222, 0.55);
+  --color-ink: #1c1a17;
+  --color-ink-soft: rgba(28, 26, 23, 0.72);
+  --color-ink-muted: rgba(28, 26, 23, 0.56);
+  --color-ink-faint: rgba(28, 26, 23, 0.42);
+
+  /* Brand / action */
+  --color-accent: #5f8a74;
+  --color-accent-deep: #4a6f5c;
+  --color-accent-top: #74a08a;
+  --color-accent-bottom: #547564;
+  --color-accent-soft: rgba(95, 138, 116, 0.14);
+  --color-accent-border: rgba(84, 117, 100, 0.28);
+  --color-on-accent: #faf9f6;
+
+  /* Borders & elevation */
+  --color-border: rgba(28, 26, 23, 0.08);
+  --color-border-strong: rgba(28, 26, 23, 0.12);
+  --color-border-accent: rgba(84, 117, 100, 0.18);
+  --shadow-soft: 0 1px 2px rgba(28, 26, 23, 0.04), 0 16px 40px rgba(28, 26, 23, 0.06);
+  --shadow-card: 0 8px 24px rgba(84, 117, 100, 0.08);
+  --shadow-float: 0 12px 40px rgba(28, 26, 23, 0.1), 0 2px 8px rgba(28, 26, 23, 0.04);
+  --shadow-cta:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 10px 24px rgba(28, 26, 23, 0.08);
+
+  /* Footer (dark band) */
+  --color-footer: #1a1815;
+  --color-footer-text: #faf9f6;
+  --color-footer-muted: rgba(250, 249, 246, 0.58);
+
+  /* Type */
+  --font-display: var(--font-comfortaa), "Comfortaa", system-ui, sans-serif;
+  --font-body: var(--font-inter), "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-ui: var(--font-inter), "Inter", system-ui, sans-serif;
+
+  /* Scale (clamp-friendly base) */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: clamp(1.5rem, 2.2vw, 1.875rem);
+  --text-3xl: clamp(1.875rem, 3vw, 2.5rem);
+  --text-display: clamp(2.25rem, 4.6vw, 3.75rem);
+  --leading-tight: 1.08;
+  --leading-snug: 1.25;
+  --leading-body: 1.65;
+  --tracking-display: -0.035em;
+  --tracking-label: 0.1em;
+
+  /* Space (4pt) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --page-gutter: clamp(20px, 4vw, 56px);
+  --page-max: 1200px;
+  --section-y: clamp(64px, 8vw, 104px);
+
+  /* Radius & motion */
+  --radius-control: 10px;
+  --radius-card: 12px;
+  --radius-panel: 16px;
+  --radius-pill: 999px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+  --dur-fast: 160ms;
+  --dur-base: 220ms;
+  --dur-slow: 420ms;
+
+  /* Back-compat aliases used across existing CSS */
+  --bg: var(--color-page);
+  --bg-soft: var(--color-canvas);
+  --ink: var(--color-ink);
+  --accent: var(--color-accent);
+  --accent-deep: var(--color-accent-deep);
+  --accent-soft: var(--color-accent-soft);
+  --nav-font: var(--font-display);
+}
