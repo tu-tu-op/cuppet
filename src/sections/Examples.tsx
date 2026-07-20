@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { CalendarClock, GraduationCap, HardDrive, Inbox, Newspaper } from 'lucide-react'
 import SectionHeading from '../components/SectionHeading'
 
@@ -35,7 +34,7 @@ const EXAMPLES = [
 
 export default function Examples() {
   return (
-    <section id="examples" className="py-24 sm:py-36">
+    <section id="examples" className="py-20 sm:py-32">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading
           eyebrow="In practice"
@@ -44,31 +43,27 @@ export default function Examples() {
           align="left"
         />
 
-        <div className="mt-16 border-y border-black/10">
-          {EXAMPLES.map((example, index) => (
-            <motion.article
-              key={example.name}
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ delay: index * 0.06, duration: 0.5 }}
-              className="group grid gap-5 border-b border-black/10 py-7 last:border-b-0 sm:grid-cols-[180px_minmax(0,1fr)_170px] sm:items-center sm:gap-8"
+        <div className="mt-14 overflow-hidden rounded-[var(--radius-surface)] border border-[var(--rule)]">
+          {EXAMPLES.map((ex) => (
+            <article
+              key={ex.name}
+              className="grid gap-4 border-b border-[var(--rule)] bg-[var(--paper)] px-5 py-6 last:border-b-0 transition-colors duration-200 hover:bg-[var(--paper-2)] sm:grid-cols-[180px_minmax(0,1fr)_170px] sm:items-center sm:gap-8 sm:px-7"
             >
               <div className="flex items-center gap-3">
-                <span className="flex h-9 w-9 items-center justify-center rounded-full border border-black/10 bg-[#F5F3EE]/55">
-                  <example.Icon className="h-4 w-4 text-[#2c6042]" strokeWidth={1.6} />
+                <span className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--rule)] bg-[var(--paper)]">
+                  <ex.Icon className="h-4 w-4 text-[var(--forest-mid)]" strokeWidth={1.6} />
                 </span>
                 <div>
-                  <p className="text-[13px] font-semibold text-[#171a17]">{example.name}</p>
-                  <p className="mt-0.5 flex items-center gap-1 text-[9px] uppercase tracking-[0.08em] text-black/30">
+                  <p className="text-[13px] font-semibold text-[var(--ink)]">{ex.name}</p>
+                  <p className="mt-0.5 flex items-center gap-1 text-[9px] uppercase tracking-[0.08em] text-[var(--ink-faint)]">
                     <CalendarClock className="h-2.5 w-2.5" />
-                    {example.schedule}
+                    {ex.schedule}
                   </p>
                 </div>
               </div>
-              <p className="text-[15px] leading-6 text-black/65">“{example.prompt}”</p>
-              <p className="text-xs leading-5 text-black/38 sm:text-right">{example.result}</p>
-            </motion.article>
+              <p className="text-[15px] leading-6 text-[var(--ink-soft)]">“{ex.prompt}”</p>
+              <p className="text-xs leading-5 text-[var(--ink-faint)] sm:text-right">{ex.result}</p>
+            </article>
           ))}
         </div>
       </div>

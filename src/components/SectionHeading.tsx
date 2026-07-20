@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import type { ReactNode } from 'react'
 
 export default function SectionHeading({
   eyebrow,
@@ -8,47 +8,37 @@ export default function SectionHeading({
   tone = 'light',
 }: {
   eyebrow: string
-  title: React.ReactNode
+  title: ReactNode
   sub?: string
   align?: 'center' | 'left'
   tone?: 'light' | 'dark'
 }) {
-  const isDark = tone === 'dark'
-
+  const dark = tone === 'dark'
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-      className={`max-w-3xl ${align === 'center' ? 'mx-auto text-center' : ''}`}
-    >
-      <div className={`flex items-center gap-3 ${align === 'center' ? 'justify-center' : ''}`}>
-        <span className={`h-px w-8 ${isDark ? 'bg-[#F5F3EE]/30' : 'bg-black/25'}`} />
-        <span
-          className={`text-[10px] font-semibold uppercase tracking-[0.2em] ${
-            isDark ? 'text-[#F5F3EE]/60' : 'text-black/50'
-          }`}
-        >
-          {eyebrow}
-        </span>
-      </div>
+    <div className={`max-w-3xl ${align === 'center' ? 'mx-auto text-center' : ''}`}>
+      <p
+        className={`text-[11px] font-semibold uppercase tracking-[0.18em] ${
+          dark ? 'text-[rgba(245,243,238,0.5)]' : 'text-[var(--ink-faint)]'
+        }`}
+      >
+        {eyebrow}
+      </p>
       <h2
-        className={`mt-6 font-display font-normal tracking-[-0.025em] text-[2.5rem] leading-[0.98] sm:text-[3.55rem] ${
-          isDark ? 'text-[#F5F3EE]' : 'text-[#171a17]'
+        className={`mt-4 font-display text-[2.4rem] font-normal leading-[0.98] tracking-[-0.03em] sm:text-[3.4rem] ${
+          dark ? 'text-[var(--paper)]' : 'text-[var(--ink)]'
         }`}
       >
         {title}
       </h2>
       {sub && (
         <p
-          className={`mt-5 max-w-2xl text-[15px] leading-7 ${
-            align === 'center' ? 'mx-auto' : ''
-          } ${isDark ? 'text-[#F5F3EE]/60' : 'text-black/55'}`}
+          className={`mt-5 max-w-2xl text-[15px] leading-7 ${align === 'center' ? 'mx-auto' : ''} ${
+            dark ? 'text-[rgba(245,243,238,0.55)]' : 'text-[var(--ink-soft)]'
+          }`}
         >
           {sub}
         </p>
       )}
-    </motion.div>
+    </div>
   )
 }

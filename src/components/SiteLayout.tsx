@@ -1,9 +1,9 @@
-import { useEffect } from 'react'
+import { useEffect, type ReactNode } from 'react'
 import { useLocation } from 'react-router'
 import Navbar from '../sections/Navbar'
 import Footer from '../sections/Footer'
 
-export default function SiteLayout({ children }: { children: React.ReactNode }) {
+export default function SiteLayout({ children }: { children: ReactNode }) {
   const location = useLocation()
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
   }, [location.hash, location.pathname])
 
   return (
-    <div className="min-h-screen overflow-x-clip bg-[#F5F3EE] text-foreground">
+    <div className="min-h-screen overflow-x-clip bg-[var(--paper)] text-[var(--ink)]">
       <Navbar />
       {children}
       <Footer />

@@ -25,13 +25,13 @@ export function Logo({
       <img
         src="/cuppet-icon-full-color.svg"
         alt=""
-        width={size === 'md' ? 34 : 30}
-        height={size === 'md' ? 34 : 30}
+        width={size === 'md' ? 32 : 28}
+        height={size === 'md' ? 32 : 28}
         className={`shrink-0 object-contain transition-transform duration-300 group-hover:-rotate-6 ${
-          size === 'md' ? 'h-[34px] w-[34px]' : 'h-[30px] w-[30px]'
+          size === 'md' ? 'h-8 w-8' : 'h-7 w-7'
         }`}
       />
-      <span className="font-body text-[17px] tracking-[-0.03em] text-[#171a17] font-semibold">
+      <span className="font-body text-[16px] tracking-[-0.03em] text-[var(--ink)] font-semibold">
         Cuppet
       </span>
     </Link>
@@ -43,7 +43,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
+    const onScroll = () => setScrolled(window.scrollY > 16)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -58,25 +58,27 @@ export default function Navbar() {
   }, [open])
 
   return (
-    <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-[#F5F3EE]/85 backdrop-blur-xl border-b border-black/10' : ''
-      }`}
-    >
-      <nav className="max-w-6xl mx-auto px-5 sm:px-8 h-[72px] flex items-center justify-between">
+    <header className="fixed top-0 inset-x-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4">
+      <nav
+        className={`mx-auto flex h-14 max-w-5xl items-center justify-between gap-3 rounded-full px-3 sm:px-4 transition-[background-color,box-shadow,border-color] duration-300 ${
+          scrolled || open
+            ? 'border border-[var(--rule)] bg-[rgba(245,243,238,0.88)] shadow-[0_12px_40px_-24px_rgba(12,25,17,0.35)] backdrop-blur-xl'
+            : 'border border-transparent bg-transparent'
+        }`}
+      >
         <Logo onNavigate={() => setOpen(false)} />
 
-        <div className="hidden md:flex items-center gap-9">
+        <div className="hidden md:flex items-center gap-1">
           {LINKS.map((l) => (
             <NavLink
               key={l.href}
               to={l.href}
               end={l.end}
               className={({ isActive }) =>
-                `relative py-2 text-[13px] font-medium transition-colors after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:bg-[#173c2a] after:transition-transform ${
+                `rounded-full px-3.5 py-2 text-[13px] font-medium transition-colors duration-200 ${
                   isActive
-                    ? 'text-[#171a17] after:scale-x-100'
-                    : 'text-black/55 after:scale-x-0 hover:text-black hover:after:scale-x-100'
+                    ? 'bg-[var(--paper-3)] text-[var(--forest)]'
+                    : 'text-[var(--ink-soft)] hover:bg-black/[0.04] hover:text-[var(--ink)]'
                 }`
               }
             >
@@ -85,17 +87,17 @@ export default function Navbar() {
           ))}
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <Link
             to="/#cta"
-            className="hidden sm:inline-flex items-center gap-2 text-[13px] font-semibold bg-[#173c2a] hover:bg-[#102e20] text-[#F5F3EE] px-4 py-2.5 rounded-full transition-colors"
+            className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-[var(--forest)] px-4 py-2 text-[13px] font-semibold text-[var(--paper)] transition-colors duration-200 hover:bg-[#102e20]"
           >
             Join private beta
             <ArrowUpRight className="w-3.5 h-3.5" />
           </Link>
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden w-9 h-9 flex items-center justify-center rounded-full border border-black/10 bg-[#F5F3EE]/60 text-[#171a17]"
+            className="md:hidden flex h-9 w-9 items-center justify-center rounded-full border border-[var(--rule)] bg-[var(--paper)]/70 text-[var(--ink)]"
             aria-label="Toggle menu"
             aria-expanded={open}
             aria-controls="mobile-navigation"
@@ -108,7 +110,7 @@ export default function Navbar() {
       {open && (
         <div
           id="mobile-navigation"
-          className="md:hidden bg-[#F5F3EE]/95 backdrop-blur-xl border-b border-black/10 px-5 pb-5 pt-2 space-y-1"
+          className="mx-auto mt-2 max-w-5xl overflow-hidden rounded-2xl border border-[var(--rule)] bg-[rgba(245,243,238,0.96)] px-3 py-3 shadow-[0_16px_48px_-28px_rgba(12,25,17,0.4)] backdrop-blur-xl md:hidden"
         >
           {LINKS.map((l) => (
             <NavLink
@@ -117,8 +119,10 @@ export default function Navbar() {
               end={l.end}
               onClick={() => setOpen(false)}
               className={({ isActive }) =>
-                `block border-b border-black/[0.06] py-3 text-sm transition-colors ${
-                  isActive ? 'font-semibold text-[#173c2a]' : 'text-black/60 hover:text-black'
+                `block rounded-xl px-3 py-3 text-sm transition-colors ${
+                  isActive
+                    ? 'bg-[var(--paper-3)] font-semibold text-[var(--forest)]'
+                    : 'text-[var(--ink-soft)] hover:bg-black/[0.03] hover:text-[var(--ink)]'
                 }`
               }
             >
@@ -128,7 +132,7 @@ export default function Navbar() {
           <Link
             to="/#cta"
             onClick={() => setOpen(false)}
-            className="mt-2 flex items-center justify-center gap-2 text-sm font-semibold bg-[#173c2a] text-[#F5F3EE] px-4 py-2.5 rounded-full"
+            className="mt-2 flex items-center justify-center gap-2 rounded-full bg-[var(--forest)] px-4 py-2.5 text-sm font-semibold text-[var(--paper)]"
           >
             Join private beta
             <ArrowUpRight className="w-3.5 h-3.5" />

@@ -4,22 +4,22 @@ import type { BlogVisual } from '../data/blog'
 const VISUALS = {
   signal: {
     Icon: Radar,
-    label: 'Signal / 01',
+    label: 'Signal',
     title: 'Notice what changed.',
   },
   connections: {
     Icon: Cable,
-    label: 'Context / 02',
+    label: 'Context',
     title: 'Work where work lives.',
   },
   filter: {
     Icon: Funnel,
-    label: 'Selection / 03',
+    label: 'Selection',
     title: 'Less, but more relevant.',
   },
   trust: {
     Icon: ShieldCheck,
-    label: 'Trust / 04',
+    label: 'Trust',
     title: 'Read first. Act later.',
   },
 } satisfies Record<BlogVisual, { Icon: typeof Radar; label: string; title: string }>
@@ -35,36 +35,30 @@ export default function EditorialVisual({
 
   return (
     <div
-      className={`editorial-visual editorial-visual--${variant} relative overflow-hidden border border-black/10 bg-[#e3e9df] ${
-        compact ? 'min-h-[280px]' : 'min-h-[340px] sm:min-h-[430px]'
+      className={`editorial-visual editorial-visual--${variant} relative overflow-hidden rounded-[var(--radius-surface)] border border-[var(--rule)] bg-[var(--paper-3)] ${
+        compact ? 'min-h-[220px]' : 'min-h-[320px] sm:min-h-[400px]'
       }`}
       role="img"
-      aria-label={`Abstract editorial illustration: ${title}`}
+      aria-label={`Abstract illustration: ${title}`}
     >
-      <div className="absolute inset-x-0 top-0 flex items-center justify-between border-b border-black/10 px-5 py-4">
-        <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-black/40">
+      <div className="absolute inset-x-0 top-0 flex items-center justify-between border-b border-[var(--rule)] px-5 py-3.5">
+        <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--ink-faint)]">
           {label}
         </span>
-        <span className="h-1.5 w-1.5 rounded-full bg-[#2c6042]" />
+        <span className="h-1.5 w-1.5 rounded-full bg-[var(--leaf)]" />
       </div>
 
-      <div className="absolute left-1/2 top-[53%] flex h-28 w-28 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#173c2a]/20 bg-[#F5F3EE]/65 sm:h-36 sm:w-36">
-        <span className="flex h-14 w-14 items-center justify-center rounded-full bg-[#173c2a] sm:h-16 sm:w-16">
-          <Icon className="h-6 w-6 text-[#F5F3EE]" strokeWidth={1.4} />
+      <div className="absolute left-1/2 top-[52%] flex h-24 w-24 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[rgba(23,60,42,0.18)] bg-[rgba(245,243,238,0.7)] sm:h-32 sm:w-32">
+        <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--forest)] sm:h-14 sm:w-14">
+          <Icon className="h-5 w-5 text-[var(--paper)] sm:h-6 sm:w-6" strokeWidth={1.4} />
         </span>
       </div>
 
-      <div className="absolute bottom-0 inset-x-0 flex items-end justify-between border-t border-black/10 px-5 py-4">
-        <p className="max-w-[11rem] font-display text-[1.45rem] leading-none tracking-[-0.02em] text-[#173c2a]">
+      <div className="absolute inset-x-0 bottom-0 border-t border-[var(--rule)] px-5 py-4">
+        <p className="max-w-[14rem] font-display text-[1.35rem] leading-none tracking-[-0.02em] text-[var(--forest)] sm:text-[1.5rem]">
           {title}
         </p>
-        <span className="font-mono text-[9px] text-black/30">CUPPET / 2026</span>
       </div>
-
-      <span className="absolute left-[14%] top-[23%] h-2 w-2 rounded-full bg-[#43855b]" />
-      <span className="absolute right-[16%] top-[34%] h-2 w-2 rounded-full border border-[#173c2a]/40" />
-      <span className="absolute bottom-[28%] left-[23%] h-px w-[18%] bg-[#173c2a]/20" />
-      <span className="absolute bottom-[35%] right-[18%] h-px w-[22%] bg-[#173c2a]/20" />
     </div>
   )
 }

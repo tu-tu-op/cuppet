@@ -1,23 +1,22 @@
-import { motion } from 'framer-motion'
 import { MessageSquareText, BotMessageSquare, BellRing } from 'lucide-react'
 import SectionHeading from '../components/SectionHeading'
 import AgentBuilder from '../components/AgentBuilder'
 
 const STEPS = [
   {
-    n: '01',
+    n: '1',
     Icon: MessageSquareText,
     title: 'Describe the outcome',
     body: 'Write what you want in plain English. No flowcharts, triggers, or configuration screens.',
   },
   {
-    n: '02',
+    n: '2',
     Icon: BotMessageSquare,
     title: 'Cuppet sets the routine',
     body: 'Your request becomes a persistent agent with the right schedule and account access.',
   },
   {
-    n: '03',
+    n: '3',
     Icon: BellRing,
     title: 'Results arrive in chat',
     body: 'The agent works in the background and sends a concise update when there is something worth reading.',
@@ -26,8 +25,8 @@ const STEPS = [
 
 export default function HowItWorks() {
   return (
-    <section id="how" className="py-24 sm:py-36">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+    <section id="how" className="py-20 sm:py-32">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading
           eyebrow="How it works"
           title={<>A request in. A result out.</>}
@@ -35,38 +34,26 @@ export default function HowItWorks() {
           align="left"
         />
 
-        <div className="grid sm:grid-cols-3 mt-16 mb-16 border-y border-black/10">
-          {STEPS.map((s, i) => (
-            <motion.div
-              key={s.n}
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ delay: i * 0.12, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className={`relative py-8 sm:px-7 sm:py-10 ${
-                i > 0 ? 'border-t border-black/10 sm:border-l sm:border-t-0' : ''
-              }`}
-            >
+        <div className="mt-14 grid gap-px overflow-hidden rounded-[var(--radius-surface)] border border-[var(--rule)] bg-[var(--rule)] sm:grid-cols-3">
+          {STEPS.map((s) => (
+            <div key={s.n} className="bg-[var(--paper)] p-7 sm:p-8">
               <div className="flex items-center justify-between">
-                <span className="font-mono text-[10px] text-black/35">{s.n}</span>
-                <s.Icon className="w-4 h-4 text-[#2c6042]" strokeWidth={1.6} />
+                <span className="font-display text-3xl leading-none tracking-[-0.03em] text-[var(--forest-mid)]">
+                  {s.n}
+                </span>
+                <s.Icon className="h-4 w-4 text-[var(--forest-mid)]" strokeWidth={1.6} />
               </div>
-              <h3 className="mt-12 text-[17px] font-semibold tracking-[-0.02em] text-[#171a17]">
+              <h3 className="mt-10 text-[17px] font-semibold tracking-[-0.02em] text-[var(--ink)]">
                 {s.title}
               </h3>
-              <p className="mt-3 text-sm text-black/50 leading-6">{s.body}</p>
-            </motion.div>
+              <p className="mt-3 text-sm leading-6 text-[var(--ink-soft)]">{s.body}</p>
+            </div>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        >
+        <div className="mt-14">
           <AgentBuilder />
-        </motion.div>
+        </div>
       </div>
     </section>
   )

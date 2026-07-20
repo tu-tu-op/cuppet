@@ -161,29 +161,22 @@ export default function LegalDocument({
     <SiteLayout>
       <Seo title={title} description={description} path={path} />
       <main>
-        <header className="relative border-b border-black/10 px-5 pb-16 pt-36 sm:px-8 sm:pb-20 sm:pt-44">
+        <header className="relative border-b border-[var(--rule)] px-5 pb-16 pt-36 sm:px-8 sm:pb-20 sm:pt-44">
           <div className="pointer-events-none absolute inset-0 grid-bg opacity-45" />
           <div className="relative mx-auto max-w-6xl">
-            <div className="flex items-center gap-3">
-              <span className="h-px w-8 bg-black/25" />
-              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-black/50">
-                Legal
-              </span>
-            </div>
-            <h1 className="mt-8 max-w-4xl font-display text-[3.8rem] font-normal leading-[0.92] tracking-[-0.04em] text-[#171a17] sm:text-[6.2rem]">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--ink-faint)]">
+              Legal
+            </p>
+            <h1 className="mt-6 max-w-4xl font-display text-[3.4rem] font-normal leading-[0.92] tracking-[-0.04em] text-[var(--ink)] sm:text-[5.5rem]">
               {title}
             </h1>
-            <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3 border-t border-black/10 pt-6 text-[11px] text-black/45">
+            <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 border-t border-[var(--rule)] pt-6 text-[11px] text-[var(--ink-faint)]">
               <p>
-                <span className="mr-2 font-semibold uppercase tracking-[0.12em] text-black/30">
-                  Effective
-                </span>
+                <span className="mr-2 font-semibold uppercase tracking-[0.12em]">Effective</span>
                 {renderInline(effectiveDate)}
               </p>
               <p>
-                <span className="mr-2 font-semibold uppercase tracking-[0.12em] text-black/30">
-                  Last updated
-                </span>
+                <span className="mr-2 font-semibold uppercase tracking-[0.12em]">Last updated</span>
                 {renderInline(lastUpdated)}
               </p>
             </div>

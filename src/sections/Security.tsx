@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { Eye, Lock, ShieldCheck, Smartphone, KeyRound, ArrowRight } from 'lucide-react'
 import SectionHeading from '../components/SectionHeading'
 
@@ -22,7 +21,7 @@ const ITEMS = [
 
 export default function Security() {
   return (
-    <section id="security" className="bg-[#153728] py-24 sm:py-36">
+    <section id="security" className="bg-[var(--forest-deep)] py-20 sm:py-32">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading
           eyebrow="Security"
@@ -32,72 +31,58 @@ export default function Security() {
           tone="dark"
         />
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-16 rounded-[1.5rem] border border-[#F5F3EE]/15 bg-[#F5F3EE]/5 p-6 sm:p-8"
-        >
+        <div className="mt-14 rounded-[var(--radius-surface)] border border-[rgba(245,243,238,0.14)] bg-[rgba(245,243,238,0.05)] p-6 sm:p-8">
           <div className="grid items-center gap-5 sm:grid-cols-[1fr_auto_1fr_auto_1fr]">
             <div className="flex items-center gap-4 sm:flex-col sm:text-center">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#F5F3EE]/15 bg-[#F5F3EE]/5">
-                <Smartphone className="h-5 w-5 text-[#F5F3EE]/70" strokeWidth={1.5} />
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[rgba(245,243,238,0.14)] bg-[rgba(245,243,238,0.05)]">
+                <Smartphone className="h-5 w-5 text-[rgba(245,243,238,0.7)]" strokeWidth={1.5} />
               </div>
               <div>
-                <p className="text-xs font-semibold text-[#F5F3EE]/85">Your device</p>
-                <p className="mt-1 text-[10px] text-[#F5F3EE]/35">No credentials stored</p>
+                <p className="text-xs font-semibold text-[rgba(245,243,238,0.85)]">Your device</p>
+                <p className="mt-1 text-[10px] text-[rgba(245,243,238,0.35)]">No credentials stored</p>
               </div>
             </div>
-
-            <ArrowRight className="hidden h-4 w-4 text-[#F5F3EE]/20 sm:block" />
-
+            <ArrowRight className="hidden h-4 w-4 text-[rgba(245,243,238,0.2)] sm:block" />
             <div className="flex items-center gap-4 sm:flex-col sm:text-center">
-              <div className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#F5F3EE]">
-                <ShieldCheck className="h-6 w-6 text-[#173c2a]" strokeWidth={1.6} />
+              <div className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[var(--paper)]">
+                <ShieldCheck className="h-6 w-6 text-[var(--forest)]" strokeWidth={1.6} />
                 <span className="absolute -right-0.5 -top-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-[#86b895]">
-                  <KeyRound className="h-2.5 w-2.5 text-[#153728]" />
+                  <KeyRound className="h-2.5 w-2.5 text-[var(--forest-deep)]" />
                 </span>
               </div>
               <div>
-                <p className="text-xs font-semibold text-[#F5F3EE]">Encrypted vault</p>
-                <p className="mt-1 text-[10px] text-[#F5F3EE]/35">Tokens live here</p>
+                <p className="text-xs font-semibold text-[var(--paper)]">Encrypted vault</p>
+                <p className="mt-1 text-[10px] text-[rgba(245,243,238,0.35)]">Tokens live here</p>
               </div>
             </div>
-
-            <ArrowRight className="hidden h-4 w-4 text-[#F5F3EE]/20 sm:block" />
-
+            <ArrowRight className="hidden h-4 w-4 text-[rgba(245,243,238,0.2)] sm:block" />
             <div className="flex items-center gap-4 sm:flex-col sm:text-center">
-              <div className="grid h-12 w-12 shrink-0 grid-cols-2 gap-1 rounded-full border border-[#F5F3EE]/15 bg-[#F5F3EE]/5 p-3.5">
-                <span className="rounded-full bg-[#F5F3EE]/55" />
-                <span className="rounded-full bg-[#F5F3EE]/35" />
-                <span className="rounded-full bg-[#F5F3EE]/35" />
-                <span className="rounded-full bg-[#F5F3EE]/55" />
+              <div className="grid h-12 w-12 shrink-0 grid-cols-2 gap-1 rounded-full border border-[rgba(245,243,238,0.14)] bg-[rgba(245,243,238,0.05)] p-3.5">
+                <span className="rounded-full bg-[rgba(245,243,238,0.55)]" />
+                <span className="rounded-full bg-[rgba(245,243,238,0.35)]" />
+                <span className="rounded-full bg-[rgba(245,243,238,0.35)]" />
+                <span className="rounded-full bg-[rgba(245,243,238,0.55)]" />
               </div>
               <div>
-                <p className="text-xs font-semibold text-[#F5F3EE]/85">Your accounts</p>
-                <p className="mt-1 text-[10px] text-[#F5F3EE]/35">Read-first access</p>
+                <p className="text-xs font-semibold text-[rgba(245,243,238,0.85)]">Your accounts</p>
+                <p className="mt-1 text-[10px] text-[rgba(245,243,238,0.35)]">Read-first access</p>
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
 
-        <div className="mt-12 grid border-y border-[#F5F3EE]/15 sm:grid-cols-3">
-          {ITEMS.map((item, index) => (
-            <motion.div
+        <div className="mt-10 grid border-y border-[rgba(245,243,238,0.14)] sm:grid-cols-3">
+          {ITEMS.map((item, i) => (
+            <div
               key={item.title}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ delay: index * 0.1, duration: 0.55 }}
               className={`py-7 sm:px-7 ${
-                index > 0 ? 'border-t border-[#F5F3EE]/15 sm:border-l sm:border-t-0' : ''
+                i > 0 ? 'border-t border-[rgba(245,243,238,0.14)] sm:border-l sm:border-t-0' : ''
               }`}
             >
               <item.Icon className="h-4 w-4 text-[#a8ceb2]" strokeWidth={1.5} />
-              <h3 className="mt-8 text-sm font-semibold text-[#F5F3EE]/90">{item.title}</h3>
-              <p className="mt-2 text-xs leading-5 text-[#F5F3EE]/45">{item.body}</p>
-            </motion.div>
+              <h3 className="mt-7 text-sm font-semibold text-[rgba(245,243,238,0.9)]">{item.title}</h3>
+              <p className="mt-2 text-xs leading-5 text-[rgba(245,243,238,0.45)]">{item.body}</p>
+            </div>
           ))}
         </div>
       </div>
